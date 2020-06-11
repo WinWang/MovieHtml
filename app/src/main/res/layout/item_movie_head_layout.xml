@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80pt"
+    android:background="@color/colorAccent">
+
+
+    <TextView
+        android:id="@+id/tv_head_title"
+        android:layout_width="wrap_content"
+        android:layout_height="80pt"
+        android:layout_marginLeft="30pt"
+        android:gravity="center_vertical"
+        android:text="标题党"
+        android:textColor="@color/white"
+        android:textSize="32pt"
+        android:textStyle="bold" />
+
+
+    <View
+        android:layout_width="4pt"
+        android:layout_height="20pt"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10pt"
+        android:background="@color/white" />
+
+</FrameLayout>

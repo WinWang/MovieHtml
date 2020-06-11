@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="230pt"
+        android:layout_height="380pt"
+        android:layout_gravity="center"
+        android:layout_marginTop="20pt"
+        android:layout_marginBottom="20pt"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/iv_movie_cover"
+            android:layout_width="match_parent"
+            android:layout_height="320pt"
+            android:scaleType="fitXY"
+            android:src="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/tv_movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10pt"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="这是数据标题"
+            android:textColor="#333"
+            android:textSize="28pt" />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>
