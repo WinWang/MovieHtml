@@ -6,6 +6,8 @@ import com.winwang.moviehtml.R
 import com.winwang.moviehtml.adapter.HomeAdapter
 import com.winwang.moviehtml.base.BaseVmFragment
 import com.winwang.moviehtml.bean.MovieBean
+import com.winwang.moviehtml.ui.detail.VideoDetailActivity
+import com.winwang.moviehtml.utils.Router
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -40,6 +42,28 @@ class HomeFragment : BaseVmFragment<HomeViewModel>() {
                         else -> 2
                     }
                 }
+            }
+            setOnItemClickListener { adapter, view, position ->
+                val item: MovieBean = adapter.data[position] as MovieBean
+                when (item.type) {
+                    HomeAdapter.HOME_TAB -> {
+
+                    }
+
+                    HomeAdapter.HOME_HEADER -> {
+
+                    }
+
+                    HomeAdapter.HOME_MOVIE -> {
+                        Router.newIntent(mContext)
+                            .to(VideoDetailActivity::class.java)
+                            .putString(VideoDetailActivity.VIDEO_DETAIL_KEY, item.linkUrl)
+                            .putString(VideoDetailActivity.VIDEO_NAME, item.movieName)
+                            .launch()
+                    }
+
+                }
+
             }
         }
         rv_video_home.adapter = adapter

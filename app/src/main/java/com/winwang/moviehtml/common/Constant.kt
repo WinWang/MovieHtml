@@ -16,6 +16,6 @@ object Constant {
     /**
      * 直播数据抓取地址
      */
-    const val BASE_LIVE_URL = "http://www.hao5.net";
+    const val BASE_LIVE_URL = "http://www.hao5.net/";
 
 }

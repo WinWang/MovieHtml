@@ -68,6 +68,7 @@ dependencies {
     implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
     implementation 'com.oushangfeng:PinnedSectionItemDecoration:1.3.2'
     implementation 'com.youth.banner:banner:2.0.11'
+    implementation 'cn.jzvd:jiaozivideoplayer:7.4.1'
 
 
 }

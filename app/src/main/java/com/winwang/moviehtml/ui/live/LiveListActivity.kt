@@ -3,7 +3,10 @@ package com.winwang.moviehtml.ui.live
 import com.winwang.moviehtml.R
 import com.winwang.moviehtml.adapter.TVListAdapter
 import com.winwang.moviehtml.base.BaseActivity
+import com.winwang.moviehtml.bean.LiveBean
 import com.winwang.moviehtml.bean.LiveTypeBean
+import com.winwang.moviehtml.ui.live.detail.TVDetailActivity
+import com.winwang.moviehtml.utils.Router
 import kotlinx.android.synthetic.main.activity_tv_list_layout.*
 
 /**
@@ -19,13 +22,19 @@ class LiveListActivity : BaseActivity() {
     override fun initViewData() {
         super.initViewData()
         val liveTypeBean = intent.getSerializableExtra("tvList") as LiveTypeBean
-        mTopBar?.setTitle(liveTypeBean.liveTypeName)
+        setTitleName(liveTypeBean.liveTypeName)
         val liveList = liveTypeBean.liveList
         adapter = TVListAdapter(dataList = liveList).apply {
             setOnItemClickListener { adapter, view, position ->
-
+                val liveBean = adapter.data[position] as LiveBean
+                Router.newIntent(mContext)
+                    .to(TVDetailActivity::class.java)
+                    .putString(TVDetailActivity.TV_NAME, liveBean.liveName)
+                    .putString(TVDetailActivity.TV_LINK, liveBean.liveLink)
+                    .launch()
             }
         }
         rv_tv_list.adapter = adapter
     }
+
 }

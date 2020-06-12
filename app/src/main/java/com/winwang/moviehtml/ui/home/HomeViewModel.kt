@@ -27,7 +27,15 @@ class HomeViewModel : BaseViewModel() {
         launch(
             block = {
                 val documentJob = async(Dispatchers.IO) {
-                    Jsoup.connect(Constant.BASE_MOVIE_URL).get()
+                    Jsoup.connect(Constant.BASE_MOVIE_URL)
+//                        .cookie("UM_distinctid","1727f44ea0f164-0b61df5f68488f-366b4108-1fa400-1727f44ea10230")
+//                        .cookie("PHPSESSID","hbvv85orbtpbreb2v245962gq4")
+//                        .cookie("Hm_lvt_a549a2cc96cab5def6a4a12939ac4077","1591415830,1591442254,1591780801,1591879016")
+//                        .cookie("CNZZDATA1276015373","1974622622-1574737779-%7C1591944533")
+//                        .cookie("Hm_lpvt_a549a2cc96cab5def6a4a12939ac4077","1591945003")
+                        .timeout(30000)
+                        .userAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) App leWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D257 Safari/9537.53")
+                        .get()
                 }
                 val document = documentJob.await()
                 document?.run {

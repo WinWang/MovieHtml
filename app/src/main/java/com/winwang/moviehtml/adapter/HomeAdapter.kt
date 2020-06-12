@@ -31,12 +31,12 @@ class HomeAdapter(datalist: ArrayList<MovieBean>) :
         addItemType(HOME_TAB, R.layout.item_movie_tab_layout)
     }
 
-    override fun convert(helper: BaseViewHolder, item: MovieBean) {
+    override fun convert(holder: BaseViewHolder, item: MovieBean) {
         item?.run {
             when (itemType) {
                 HOME_BANNER -> {
                     val bannerView =
-                        helper.getView<Banner<BannerBean, HomeBannerAdapater>>(R.id.banner_home)
+                        holder.getView<Banner<BannerBean, HomeBannerAdapater>>(R.id.banner_home)
                     bannerView?.run {
                         adapter = bannerList?.let { HomeBannerAdapater(it) }
                         start()
@@ -44,24 +44,24 @@ class HomeAdapter(datalist: ArrayList<MovieBean>) :
                 }
 
                 HOME_HEADER -> {
-                    helper.setText(R.id.tv_head_title, item.headTitle)
+                    holder.setText(R.id.tv_head_title, item.headTitle)
                 }
 
                 HOME_MOVIE -> {
-                    helper.setText(R.id.tv_movie_title, item.movieName)
+                    holder.setText(R.id.tv_movie_title, item.movieName)
                     GlideUtils.loadRadiusNetImage(
                         item.coverUrl,
-                        helper.getView(R.id.iv_movie_cover)
+                        holder.getView(R.id.iv_movie_cover)
                     )
                 }
 
                 HOME_TAB -> {
-                    helper.setText(R.id.tv_movie_tab, item.movieName)
-                    helper.getView<CardView>(R.id.card_movie_tab)
+                    holder.setText(R.id.tv_movie_tab, item.movieName)
+                    holder.getView<CardView>(R.id.card_movie_tab)
                         .setCardBackgroundColor(
                             Color.parseColor(
                                 ColorRandomUtils.generateColor(
-                                    helper.adapterPosition
+                                    holder.adapterPosition
                                 )
                             )
                         )
