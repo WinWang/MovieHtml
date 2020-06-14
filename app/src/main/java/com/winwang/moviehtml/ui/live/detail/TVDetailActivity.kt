@@ -1,9 +1,11 @@
 package com.winwang.moviehtml.ui.live.detail
 
 import androidx.lifecycle.Observer
+import cn.jzvd.Jzvd
 import com.winwang.moviehtml.R
 import com.winwang.moviehtml.base.BaseVmActivity
 import kotlinx.android.synthetic.main.activity_tv_detail_layout.*
+
 
 /**
  *Created by WinWang on 2020/6/12
@@ -17,6 +19,7 @@ class TVDetailActivity : BaseVmActivity<TVDetailViewModel>() {
     }
 
     var tvUrl: String = ""
+    var tvName: String = ""
 
     override fun viewModelClass(): Class<TVDetailViewModel> = TVDetailViewModel::class.java
 
@@ -24,7 +27,8 @@ class TVDetailActivity : BaseVmActivity<TVDetailViewModel>() {
 
     override fun initData() {
         tvUrl = intent.getStringExtra(TV_LINK)
-        setTitleName(intent.getStringExtra(TV_NAME))
+        tvName = intent.getStringExtra(TV_NAME)
+        setTitleName(tvName)
     }
 
     override fun loadNet() {
@@ -34,8 +38,24 @@ class TVDetailActivity : BaseVmActivity<TVDetailViewModel>() {
     override fun initObserve() {
         super.initObserve()
         mViewModel.playUrl.observe(this, Observer {
-            tv_player.setUp("http://cctvalih5ca.v.myalicdn.com/live/cctv1_2/index.m3u8", "")
+//            tv_player.setUp(it, tvName)
+            tv_player.setUp(it, tvName)
+            tv_player.startButton.performClick()
+
         })
     }
+
+    override fun onBackPressed() {
+        if (Jzvd.backPress()) {
+            return
+        }
+        super.onBackPressed()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Jzvd.releaseAllVideos()
+    }
+
 
 }

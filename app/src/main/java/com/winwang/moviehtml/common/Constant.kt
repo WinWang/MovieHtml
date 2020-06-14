@@ -16,6 +16,10 @@ object Constant {
     /**
      * 直播数据抓取地址
      */
-    const val BASE_LIVE_URL = "http://www.hao5.net/";
+    const val BASE_LIVE_URL = "http://www.hao5.net";
+
+    const val TV_FLASH_URL = "http://g.alicdn.com/de/prismplayer-flash/1.2.16/PrismPlayer.swf?vurl="
+    const val TV_URL_END = "&autoPlay=true"
+
 
 }

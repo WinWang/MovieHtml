@@ -6,9 +6,8 @@ import com.winwang.moviehtml.adapter.BannerBean
 import com.winwang.moviehtml.adapter.HomeAdapter
 import com.winwang.moviehtml.base.BaseViewModel
 import com.winwang.moviehtml.bean.MovieBean
-import com.winwang.moviehtml.common.Constant
+import com.winwang.moviehtml.utils.SpiderUtils
 import kotlinx.coroutines.Dispatchers
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
 /**
@@ -27,19 +26,10 @@ class HomeViewModel : BaseViewModel() {
         launch(
             block = {
                 val documentJob = async(Dispatchers.IO) {
-                    Jsoup.connect(Constant.BASE_MOVIE_URL)
-//                        .cookie("UM_distinctid","1727f44ea0f164-0b61df5f68488f-366b4108-1fa400-1727f44ea10230")
-//                        .cookie("PHPSESSID","hbvv85orbtpbreb2v245962gq4")
-//                        .cookie("Hm_lvt_a549a2cc96cab5def6a4a12939ac4077","1591415830,1591442254,1591780801,1591879016")
-//                        .cookie("CNZZDATA1276015373","1974622622-1574737779-%7C1591944533")
-//                        .cookie("Hm_lpvt_a549a2cc96cab5def6a4a12939ac4077","1591945003")
-                        .timeout(30000)
-                        .userAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) App leWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D257 Safari/9537.53")
-                        .get()
+                    SpiderUtils.initJsoup()
                 }
                 val document = documentJob.await()
                 document?.run {
-                    //                    movieList.add(MovieBean(type = 1, headTitle = "热门电影"))
                     setHotMovie(this)
                     setTabData(this)
                     movieList.add(MovieBean(type = HomeAdapter.HOME_HEADER, headTitle = "最新电影"))
@@ -70,7 +60,6 @@ class HomeViewModel : BaseViewModel() {
             val imgCover = imgElement[0].attr("src")
             val titleH4 = element.getElementsByTag("h4")
             val linkUrl = titleH4[0].getElementsByTag("a").attr("href")
-//            LogUtils.e("<><><><><><><><><>娱乐${titleH4.text()}>>>>>>>>>$linkUrl>>>>>>>>>>$imgCover")
             movieList.add(MovieBean(imgCover, titleH4.text(), linkUrl))
         }
 
@@ -88,7 +77,6 @@ class HomeViewModel : BaseViewModel() {
             val imgCover = imgElement[0].attr("src")
             val titleH4 = element.getElementsByTag("h4")
             val linkUrl = titleH4[0].getElementsByTag("a").attr("href")
-//            LogUtils.e("<><><><><><><><><>动漫${titleH4.text()}>>>>>>>>>$linkUrl>>>>>>>>>>$imgCover")
             movieList.add(MovieBean(imgCover, titleH4.text(), linkUrl))
         }
     }
@@ -104,7 +92,6 @@ class HomeViewModel : BaseViewModel() {
             val imgCover = imgElement[0].attr("src")
             val titleH4 = element.getElementsByTag("h4")
             val linkUrl = titleH4[0].getElementsByTag("a").attr("href")
-//            LogUtils.e("<><><><><><><><><>${titleH4.text()}>>>>>>>>>$linkUrl>>>>>>>>>>$imgCover")
             movieList.add(MovieBean(imgCover, titleH4.text(), linkUrl))
         }
     }
@@ -147,16 +134,14 @@ class HomeViewModel : BaseViewModel() {
     }
 
 
-    //            查找tab栏
+    //查找tab栏
     private fun setTabData(document: Document) {
         val elementsByClass = document.getElementsByClass("nav navbar-nav")
         val children = elementsByClass[0].children()
         for (child in children) {
             val tabTag = child.getElementsByTag("a")
             val tabTitle = tabTag.text() //标题
-//            LogUtils.d(tabTitle) //获取标题
             val href = tabTag[0].attr("href") //跳转连接
-//            LogUtils.d(href)    //获取href属性后期跳转
             movieList.add(
                 MovieBean(
                     type = HomeAdapter.HOME_TAB,

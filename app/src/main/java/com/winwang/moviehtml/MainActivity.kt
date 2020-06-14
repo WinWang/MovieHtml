@@ -26,9 +26,9 @@ class MainActivity : BaseActivity() {
         }
         fragmentList?.run {
             add(HomeFragment())
-            add(HomeFragment())
             add(LiveFragment())
-            add(HomeFragment())
+            add(LiveFragment())
+            add(LiveFragment())
         }
         val tabList = arrayListOf<CharSequence>(
             getString(R.string.home_tab),

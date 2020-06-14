@@ -2,10 +2,13 @@ package com.winwang.moviehtml.ui.detail
 
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.winwang.moviehtml.base.BaseViewModel
 import com.winwang.moviehtml.bean.MovieBean
 import com.winwang.moviehtml.common.Constant
+import com.winwang.moviehtml.utils.SpiderUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import org.jsoup.Jsoup
 
 /**
@@ -22,7 +25,7 @@ class VideoDetailViewModel : BaseViewModel() {
     fun getVideoDetail(path: String) {
         launch(block = {
             val job = async(Dispatchers.IO) {
-                Jsoup.connect("${Constant.BASE_MOVIE_URL}/$path").get()
+                SpiderUtils.initJsoup("${Constant.BASE_MOVIE_URL}/$path")
             }
             val document = job.await()
             document?.run {
@@ -33,6 +36,7 @@ class VideoDetailViewModel : BaseViewModel() {
                         val vodLink = element.attr("href")
                         val title = element.text()
                         if (index == 0) {
+                            delay(2000)
                             getVideoPlayUrl(vodLink)
                         }
                         LogUtils.d(">>>>>>>>>>>>$vodLink>>>>>>>$title")
@@ -46,23 +50,27 @@ class VideoDetailViewModel : BaseViewModel() {
 
 
     fun getVideoPlayUrl(linkUrl: String) {
-        launch(block = {
-            val job = async(Dispatchers.IO) {
-                Jsoup.connect("${Constant.BASE_MOVIE_URL}$linkUrl").get()
-            }
-            val document = job.await()
-//            LogUtils.d(document.toString())
-            val iframes = document.getElementsByTag("iframe")
-            iframes?.run {
-                for ((index, element) in this.withIndex()) {
-                    if (index == 1) {
-                        val attr = element.attr("src")
-                        playUrlEvent.value = attr
+        launch(
+            block = {
+                val job = async(Dispatchers.IO) {
+                    Jsoup.connect("${Constant.BASE_MOVIE_URL}$linkUrl").get()
+                }
+                val document = job.await()
+                delay(3000)
+                val iframes = document.getElementsByTag("iframe")
+                LogUtils.e(iframes.text())
+                iframes?.run {
+                    for ((index, element) in this.withIndex()) {
+                        if (index == 1) {
+                            val attr = element.attr("src")
+                            playUrlEvent.value = attr
+                        }
                     }
                 }
-            }
-
-        })
+            },
+            error = {
+                ToastUtils.showShort(it.toString())
+            })
     }
 
 
