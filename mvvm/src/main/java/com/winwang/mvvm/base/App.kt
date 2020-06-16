@@ -1,10 +1,10 @@
-package com.winwang.moviehtml.base
+package com.winwang.mvvm.base
 
 import android.app.Application
 import com.kingja.loadsir.core.LoadSir
-import com.winwang.moviehtml.common.ActivityLifecycleCallbacksAdapter
-import com.winwang.moviehtml.loadsir.*
-import com.winwang.moviehtml.utils.ActivityManager
+import com.winwang.mvvm.common.ActivityLifecycleCallbacksAdapter
+import com.winwang.mvvm.common.ActivityManager
+import com.winwang.mvvm.loadsir.*
 import me.jessyan.autosize.AutoSizeConfig
 import me.jessyan.autosize.unit.Subunits
 
@@ -12,10 +12,10 @@ import me.jessyan.autosize.unit.Subunits
  *Created by WinWang on 2020/6/5
  *Description->
  */
-class MyApplication : Application() {
+class App : Application() {
 
     companion object {
-        lateinit var instance: MyApplication
+        lateinit var instance: App
     }
 
     override fun onCreate() {

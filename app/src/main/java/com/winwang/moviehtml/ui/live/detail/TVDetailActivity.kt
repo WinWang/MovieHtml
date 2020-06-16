@@ -3,7 +3,7 @@ package com.winwang.moviehtml.ui.live.detail
 import androidx.lifecycle.Observer
 import cn.jzvd.Jzvd
 import com.winwang.moviehtml.R
-import com.winwang.moviehtml.base.BaseVmActivity
+import com.winwang.mvvm.base.BaseVmActivity
 import kotlinx.android.synthetic.main.activity_tv_detail_layout.*
 
 
@@ -38,7 +38,7 @@ class TVDetailActivity : BaseVmActivity<TVDetailViewModel>() {
     override fun initObserve() {
         super.initObserve()
         mViewModel.playUrl.observe(this, Observer {
-//            tv_player.setUp(it, tvName)
+            //            tv_player.setUp(it, tvName)
             tv_player.setUp(it, tvName)
             tv_player.startButton.performClick()
 

@@ -2,11 +2,11 @@ package com.winwang.moviehtml.ui.live
 
 import com.winwang.moviehtml.R
 import com.winwang.moviehtml.adapter.TVListAdapter
-import com.winwang.moviehtml.base.BaseActivity
 import com.winwang.moviehtml.bean.LiveBean
 import com.winwang.moviehtml.bean.LiveTypeBean
 import com.winwang.moviehtml.ui.live.detail.TVDetailActivity
 import com.winwang.moviehtml.utils.Router
+import com.winwang.mvvm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_tv_list_layout.*
 
 /**

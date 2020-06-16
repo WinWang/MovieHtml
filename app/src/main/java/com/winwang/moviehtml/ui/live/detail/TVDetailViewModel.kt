@@ -1,12 +1,10 @@
 package com.winwang.moviehtml.ui.live.detail
 
 import androidx.lifecycle.MutableLiveData
-import com.blankj.utilcode.util.LogUtils
-import com.winwang.moviehtml.base.BaseViewModel
 import com.winwang.moviehtml.common.Constant
 import com.winwang.moviehtml.ext.regexPlayUrl
+import com.winwang.mvvm.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import org.jsoup.Jsoup
 
 /**

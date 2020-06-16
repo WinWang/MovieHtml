@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.LogUtils
 import com.winwang.moviehtml.adapter.BannerBean
 import com.winwang.moviehtml.adapter.HomeAdapter
-import com.winwang.moviehtml.base.BaseViewModel
 import com.winwang.moviehtml.bean.MovieBean
 import com.winwang.moviehtml.utils.SpiderUtils
+import com.winwang.mvvm.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import org.jsoup.nodes.Document
 

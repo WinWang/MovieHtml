@@ -1,13 +1,11 @@
 package com.winwang.moviehtml.ui.live
 
-import android.view.View
 import androidx.lifecycle.Observer
 import com.winwang.moviehtml.R
 import com.winwang.moviehtml.adapter.LiveHomeAdapter
-import com.winwang.moviehtml.base.BaseVmFragment
-import com.winwang.moviehtml.bean.LiveBean
 import com.winwang.moviehtml.bean.LiveTypeBean
 import com.winwang.moviehtml.utils.Router
+import com.winwang.mvvm.base.BaseVmFragment
 import kotlinx.android.synthetic.main.fragment_live_layout.*
 
 /**

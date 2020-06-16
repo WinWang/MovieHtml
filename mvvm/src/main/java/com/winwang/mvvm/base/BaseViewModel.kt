@@ -95,26 +95,26 @@ open class BaseViewModel : ViewModel() {
         when (e) {
             is ConnectException -> {
                 // 连接失败
-                MyApplication.instance.showToast(MyApplication.instance.getString(R.string.network_connection_failed))
+                App.instance.showToast(App.instance.getString(R.string.network_connection_failed))
                 viewStatus.value = ViewStatusEnum.NETWORKERROR
             }
             is SocketTimeoutException -> {
                 // 请求超时
-                MyApplication.instance.showToast(MyApplication.instance.getString(R.string.network_request_timeout))
+                App.instance.showToast(App.instance.getString(R.string.network_request_timeout))
                 viewStatus.value = ViewStatusEnum.NETWORKERROR
             }
             is JsonParseException -> {
                 // 数据解析错误
-                MyApplication.instance.showToast(MyApplication.instance.getString(R.string.api_data_parse_error))
+                App.instance.showToast(App.instance.getString(R.string.api_data_parse_error))
                 viewStatus.value = ViewStatusEnum.ERROR
             }
             is NetworkOnMainThreadException -> {
-                MyApplication.instance.showToast(MyApplication.instance.getString(R.string.network_thread_exception))
+                App.instance.showToast(App.instance.getString(R.string.network_thread_exception))
                 viewStatus.value = ViewStatusEnum.ERROR
             }
             else -> {
                 // 其他错误
-                e.message?.let { MyApplication.instance.showToast(it) }
+                e.message?.let { App.instance.showToast(it) }
                 viewStatus.value = ViewStatusEnum.ERROR
             }
         }

@@ -4,10 +4,10 @@ import androidx.lifecycle.Observer
 import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration
 import com.winwang.moviehtml.R
 import com.winwang.moviehtml.adapter.HomeAdapter
-import com.winwang.moviehtml.base.BaseVmFragment
 import com.winwang.moviehtml.bean.MovieBean
 import com.winwang.moviehtml.ui.detail.VideoDetailActivity
 import com.winwang.moviehtml.utils.Router
+import com.winwang.mvvm.base.BaseVmFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -76,7 +76,6 @@ class HomeFragment : BaseVmFragment<HomeViewModel>() {
 
     override fun lazyLoadData() {
         loadNet()
-        TestDialog().show(childFragmentManager, "")
     }
 
     override fun loadNet() {

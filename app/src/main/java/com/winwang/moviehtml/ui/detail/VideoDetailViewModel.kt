@@ -3,10 +3,9 @@ package com.winwang.moviehtml.ui.detail
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.winwang.moviehtml.base.BaseViewModel
-import com.winwang.moviehtml.bean.MovieBean
 import com.winwang.moviehtml.common.Constant
 import com.winwang.moviehtml.utils.SpiderUtils
+import com.winwang.mvvm.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import org.jsoup.Jsoup

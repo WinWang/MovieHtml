@@ -2,7 +2,7 @@ package com.winwang.moviehtml.ui.detail
 
 import androidx.lifecycle.Observer
 import com.winwang.moviehtml.R
-import com.winwang.moviehtml.base.BaseVmActivity
+import com.winwang.mvvm.base.BaseVmActivity
 import com.youth.banner.util.LogUtils
 import kotlinx.android.synthetic.main.activity_video_detail_layout.*
 

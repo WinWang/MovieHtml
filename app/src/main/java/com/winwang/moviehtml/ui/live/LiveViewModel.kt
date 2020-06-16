@@ -1,10 +1,10 @@
 package com.winwang.moviehtml.ui.live
 
 import androidx.lifecycle.MutableLiveData
-import com.winwang.moviehtml.base.BaseViewModel
 import com.winwang.moviehtml.bean.LiveBean
 import com.winwang.moviehtml.bean.LiveTypeBean
 import com.winwang.moviehtml.common.Constant
+import com.winwang.mvvm.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
