@@ -76,6 +76,7 @@ class HomeFragment : BaseVmFragment<HomeViewModel>() {
 
     override fun lazyLoadData() {
         loadNet()
+        TestDialog().show(childFragmentManager, "")
     }
 
     override fun loadNet() {

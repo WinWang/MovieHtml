@@ -1,0 +1,56 @@
+ext {
+    android = [
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.3",
+
+            minSdkVersion    : 19,
+            targetSdkVersion : 29,
+
+            corektx          : "1.3.0",
+            navigation       : "2.2.2",
+            lifecycle        : "2.2.0",
+
+            VRetrofitSdk     : "2.7.1",
+            VOkhttp          : "4.3.1",
+            VRxlifecycle     : "3.1.0",
+            androidx         : "1.1.0",
+    ]
+
+    dependencies = [
+            "core-ktx"                   : "androidx.core:core-ktx:${android["corektx"]}",
+            "navi-fragment"              : "androidx.navigation:navigation-fragment:${android["navigation"]}",
+            "navi-ui"                    : "androidx.navigation:navigation-ui:${android["navigation"]}",
+            "navi-ui-ktx"                : "androidx.navigation:navigation-ui-ktx:${android["navigation"]}",
+            "navi-frag-ktx"              : "androidx.navigation:navigation-fragment-ktx:${android["navigation"]}",
+            "lifecycle"                  : "androidx.lifecycle:lifecycle-extensions:${android["lifecycle"]}",
+
+            "appcompat"                  : "androidx.appcompat:appcompat:${android["androidx"]}",
+            "design"                     : "com.google.android.material:material:${android["androidx"]}",
+            "annotations"                : "androidx.annotation:annotation:${android["androidx"]}",
+            "recyclerview-v7"            : "androidx.recyclerview:recyclerview:${android["androidx"]}",
+            "cardview"                   : "androidx.cardview:cardview:${android["androidx"]}",
+            "multidex"                   : 'androidx.multidex:multidex:2.0.0',
+
+            "glide"                      : "com.github.bumptech.glide:glide:4.8.0",
+            "glide-compiler"             : "com.github.bumptech.glide:compiler:4.8.0",
+
+            "retrofit"                   : "com.squareup.retrofit2:retrofit:${android["VRetrofitSdk"]}",
+            "retrofit-converter-gson"    : "com.squareup.retrofit2:converter-gson:${android["VRetrofitSdk"]}",
+            "retrofit-adapter-rxjava"    : "com.squareup.retrofit2:adapter-rxjava2:${android["VRetrofitSdk"]}",
+            "okhttp3-logging-interceptor": "com.squareup.okhttp3:logging-interceptor:${android["VOkhttp"]}",
+            "okhttp3"                    : "com.squareup.okhttp3:okhttp:${android["VOkhttp"]}",
+
+            "canary-debug"               : "com.squareup.leakcanary:leakcanary-android:1.4-beta2",
+            "canary-release"             : "com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2",
+
+            "QMUI"                       : "com.qmuiteam:qmui:2.0.0-alpha10",
+            "loadSir"                    : "com.kingja.loadsir:loadsir:1.3.8",
+            "EventBus"                   : "org.greenrobot:eventbus:3.1.1",
+            "avi-loading"                : "com.wang.avi:library:2.1.3",
+            "utilcode"                   : "com.blankj:utilcodex:1.28.4",
+            "autosize"                   : "me.jessyan:autosize:1.2.1"
+
+    ]
+
+
+}

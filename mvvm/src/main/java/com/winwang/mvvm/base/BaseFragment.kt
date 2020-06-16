@@ -1,4 +1,4 @@
-package com.winwang.moviehtml.base
+package com.winwang.mvvm.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,12 +12,12 @@ import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.widget.QMUITopBar
-import com.winwang.moviehtml.R
-import com.winwang.moviehtml.loadsir.EmptyCallback
-import com.winwang.moviehtml.loadsir.ErrorCallback
-import com.winwang.moviehtml.loadsir.LoadingCallback
-import com.winwang.moviehtml.loadsir.TimeoutCallback
-import com.winwang.moviehtml.widget.LoadingDialog
+import com.winwang.mvvm.R
+import com.winwang.mvvm.loadsir.EmptyCallback
+import com.winwang.mvvm.loadsir.ErrorCallback
+import com.winwang.mvvm.loadsir.LoadingCallback
+import com.winwang.mvvm.loadsir.TimeoutCallback
+import com.winwang.mvvm.widget.LoadingDialog
 
 /**
  *Created by WinWang on 2020/6/8

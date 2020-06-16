@@ -1,0 +1,69 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation 'androidx.appcompat:appcompat:1.1.0'
+//    implementation 'androidx.core:core-ktx:1.3.0'
+//    implementation 'com.google.android.material:material:1.1.0'
+//    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+//    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+//    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+//    implementation 'androidx.navigation:navigation-ui:2.2.2'
+//    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+//    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
+//    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+//    implementation 'me.jessyan:autosize:1.2.1'
+//    implementation 'com.kingja.loadsir:loadsir:1.3.8'
+//    implementation 'com.wang.avi:library:2.1.3'
+//    implementation 'com.blankj:utilcodex:1.28.4'
+//    implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
+//    implementation 'com.squareup.okhttp3:okhttp:4.3.1'
+//    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+//    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+
+    api rootProject.ext.dependencies["appcompat"]
+    api rootProject.ext.dependencies["core-ktx"]
+    api rootProject.ext.dependencies["design"]
+    api rootProject.ext.dependencies["navi-fragment"]
+    api rootProject.ext.dependencies["navi-ui"]
+    api rootProject.ext.dependencies["navi-ui-ktx"]
+    api rootProject.ext.dependencies["navi-frag-ktx"]
+    api rootProject.ext.dependencies["annotations"]
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["retrofit-converter-gson"]
+    api rootProject.ext.dependencies["okhttp3"]
+    api rootProject.ext.dependencies["QMUI"]
+    api rootProject.ext.dependencies["loadSir"]
+    api rootProject.ext.dependencies["avi-loading"]
+    api rootProject.ext.dependencies["lifecycle"]
+    api rootProject.ext.dependencies["core-ktx"]
+    api rootProject.ext.dependencies["avi-loading"]
+    api rootProject.ext.dependencies["utilcode"]
+    api rootProject.ext.dependencies["autosize"]
+
+}

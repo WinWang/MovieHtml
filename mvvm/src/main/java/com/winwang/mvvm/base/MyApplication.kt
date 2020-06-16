@@ -1,10 +1,10 @@
-package com.winwang.moviehtml.base
+package com.winwang.mvvm.base
 
 import android.app.Application
 import com.kingja.loadsir.core.LoadSir
-import com.winwang.moviehtml.common.ActivityLifecycleCallbacksAdapter
-import com.winwang.moviehtml.loadsir.*
-import com.winwang.moviehtml.utils.ActivityManager
+import com.winwang.mvvm.common.ActivityLifecycleCallbacksAdapter
+import com.winwang.mvvm.common.ActivityManager
+import com.winwang.mvvm.loadsir.*
 import me.jessyan.autosize.AutoSizeConfig
 import me.jessyan.autosize.unit.Subunits
 

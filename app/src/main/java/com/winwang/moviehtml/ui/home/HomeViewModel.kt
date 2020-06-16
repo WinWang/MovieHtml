@@ -21,7 +21,6 @@ class HomeViewModel : BaseViewModel() {
     private var movieList: ArrayList<MovieBean> = arrayListOf()
     private var bannerList: ArrayList<BannerBean> = arrayListOf()
 
-
     fun getMovieList() {
         launch(
             block = {
