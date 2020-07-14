@@ -29,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun getLayoutId(): Int
     private var mLoadService: LoadService<Any>? = null
     private lateinit var loadingDialog: LoadingDialog
-    protected var mTopBar: QMUITopBar? = null
+    open var mTopBar: QMUITopBar? = null
     open var mContext: Activity? = null
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
