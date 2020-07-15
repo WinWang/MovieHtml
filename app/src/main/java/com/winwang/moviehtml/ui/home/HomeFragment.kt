@@ -1,6 +1,7 @@
 package com.winwang.moviehtml.ui.home
 
 import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration
 import com.winwang.moviehtml.R
 import com.winwang.moviehtml.adapter.HomeAdapter
@@ -8,6 +9,7 @@ import com.winwang.moviehtml.bean.MovieBean
 import com.winwang.moviehtml.ui.detail.VideoDetailActivity
 import com.winwang.moviehtml.utils.Router
 import com.winwang.mvvm.base.BaseVmFragment
+import com.winwang.mvvm.base.IView
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -15,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  *Created by WinWang on 2020/6/8
  *Description->
  */
-class HomeFragment : BaseVmFragment<HomeViewModel>() {
+class HomeFragment : BaseVmFragment<HomeViewModel>(), SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var adapter: HomeAdapter
 
@@ -30,6 +32,8 @@ class HomeFragment : BaseVmFragment<HomeViewModel>() {
     override fun initView() {
         super.initView()
         mTopBar?.setTitle("首页")
+        refresh_home.setColorSchemeColors(resources.getColor(R.color.colorAccent))
+        refresh_home.setOnRefreshListener(this)
         adapter = HomeAdapter(dataList).apply {
             setGridSpanSizeLookup { gridLayoutManager, viewType, position ->
                 data.run {
@@ -45,7 +49,7 @@ class HomeFragment : BaseVmFragment<HomeViewModel>() {
             }
             setOnItemClickListener { adapter, view, position ->
                 val item: MovieBean = adapter.data[position] as MovieBean
-                when (item.type) {
+                when (item.itemType) {
                     HomeAdapter.HOME_TAB -> {
 
                     }
@@ -59,6 +63,7 @@ class HomeFragment : BaseVmFragment<HomeViewModel>() {
                             .to(VideoDetailActivity::class.java)
                             .putString(VideoDetailActivity.VIDEO_DETAIL_KEY, item.linkUrl)
                             .putString(VideoDetailActivity.VIDEO_NAME, item.movieName)
+                            .putString(VideoDetailActivity.VIDEO_COVER, item.coverUrl)
                             .launch()
                     }
 
@@ -86,9 +91,19 @@ class HomeFragment : BaseVmFragment<HomeViewModel>() {
         super.initObserve()
         mViewModel.run {
             liveMovieList.observe(viewLifecycleOwner, Observer {
-                adapter.setList(it)
+                adapter.setNewInstance(it)
             })
         }
     }
+
+    override fun onRefresh() {
+        loadNet()
+    }
+
+    override fun hideRefresh() {
+        super.hideRefresh()
+        refresh_home.isRefreshing = false
+    }
+
 
 }

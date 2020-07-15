@@ -14,7 +14,7 @@ interface ApiService {
     suspend fun movieRequest(@Path("path") path: String = ""): Call<String>
 
     @GET("/home")
-    suspend fun movieHome(): BaseResponse<List<MovieBean>>
+    suspend fun movieHome(): BaseResponse<MutableList<MovieBean>>
 
 
     @FormUrlEncoded

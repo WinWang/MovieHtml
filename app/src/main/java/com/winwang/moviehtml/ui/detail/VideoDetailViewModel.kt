@@ -25,7 +25,7 @@ class VideoDetailViewModel : BaseViewModel() {
 
     fun getVideoDetail(path: String) {
         launch(block = {
-            var response = RetrofitClient.getRetrofitByUrl("http://192.168.204.202:8080")
+            var response = RetrofitClient.getRetrofitByUrl(Constant.BASE_HOST)
                 .create(ApiService::class.java).movieDetail(path)
             if (response.code == 200) {
                 playUrlEvent.value = response.apiData().playUrl

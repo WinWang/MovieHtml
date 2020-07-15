@@ -1,14 +1,18 @@
 package com.winwang.moviehtml.adapter
 
+import android.app.Activity
 import android.graphics.Color
 import androidx.cardview.widget.CardView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.winwang.moviehtml.R
 import com.winwang.moviehtml.bean.MovieBean
+import com.winwang.moviehtml.ui.detail.VideoDetailActivity
 import com.winwang.moviehtml.utils.ColorRandomUtils
 import com.winwang.moviehtml.utils.GlideUtils
+import com.winwang.moviehtml.utils.Router
 import com.youth.banner.Banner
+import com.youth.banner.listener.OnBannerListener
 
 /**
  *Created by WinWang on 2020/6/9
@@ -40,6 +44,16 @@ class HomeAdapter(datalist: ArrayList<MovieBean>) :
                     bannerView?.run {
                         adapter = bannerList?.let { HomeBannerAdapater(it) }
                         start()
+                        setOnBannerListener(object : OnBannerListener<BannerBean> {
+                            override fun OnBannerClick(data: BannerBean, position: Int) {
+                                Router.newIntent(context as Activity)
+                                    .to(VideoDetailActivity::class.java)
+                                    .putString(VideoDetailActivity.VIDEO_DETAIL_KEY, data.linkUrl)
+                                    .putString(VideoDetailActivity.VIDEO_NAME, data.movieName)
+                                    .putString(VideoDetailActivity.VIDEO_COVER, data.coverUrl)
+                                    .launch()
+                            }
+                        })
                     }
                 }
 

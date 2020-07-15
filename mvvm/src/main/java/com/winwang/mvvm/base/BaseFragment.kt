@@ -129,5 +129,9 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    open fun hideRefresh() {
+
+    }
+
 
 }

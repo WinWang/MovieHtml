@@ -33,18 +33,22 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
             when (it) {
                 ViewStatusEnum.SUCCESS -> {
                     showSuccess()
+                    hideRefresh()
                 }
 
                 ViewStatusEnum.ERROR -> {
                     showError()
+                    hideRefresh()
                 }
 
                 ViewStatusEnum.EMPTY -> {
                     showEmpty()
+                    hideRefresh()
                 }
 
                 ViewStatusEnum.NETWORKERROR -> {
                     showTimeOut()
+                    hideRefresh()
                 }
 
             }

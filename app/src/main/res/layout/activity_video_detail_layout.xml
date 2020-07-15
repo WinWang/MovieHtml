@@ -32,8 +32,100 @@
 
             </FrameLayout>
 
+            <ImageView
+                android:id="@+id/iv_cover_movie"
+                android:layout_width="172pt"
+                android:layout_height="240pt"
+                android:layout_marginLeft="30pt"
+                android:layout_marginTop="30pt"
+                android:src="@color/efefef"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fl_video" />
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                android:id="@+id/qmll_collect"
+                android:layout_width="230pt"
+                android:layout_height="80pt"
+                android:layout_marginLeft="30pt"
+                android:layout_marginTop="30pt"
+                android:gravity="center"
+                app:layout_constraintLeft_toRightOf="@+id/iv_cover_movie"
+                app:layout_constraintTop_toTopOf="@+id/iv_cover_movie"
+                app:qmui_backgroundColor="@color/colorPrimary"
+                app:qmui_radius="10pt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="收藏"
+                    android:textColor="@color/white"
+                    android:textSize="28pt" />
+
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                android:id="@+id/qmll_download"
+                android:layout_width="230pt"
+                android:layout_height="80pt"
+                android:layout_marginLeft="30pt"
+                android:layout_marginTop="30pt"
+                android:gravity="center"
+                app:layout_constraintLeft_toRightOf="@+id/qmll_collect"
+                app:layout_constraintTop_toTopOf="@+id/iv_cover_movie"
+                app:qmui_backgroundColor="@color/colorPrimary"
+                app:qmui_radius="10pt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="下载"
+                    android:textColor="@color/white"
+                    android:textSize="28pt" />
+
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
 
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                android:id="@+id/qmll_to_tv"
+                android:layout_width="230pt"
+                android:layout_height="80pt"
+                android:layout_marginLeft="30pt"
+                android:layout_marginBottom="30pt"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_cover_movie"
+                app:layout_constraintLeft_toRightOf="@+id/iv_cover_movie"
+                app:qmui_backgroundColor="@color/colorPrimary"
+                app:qmui_radius="10pt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="投屏"
+                    android:textColor="@color/white"
+                    android:textSize="28pt" />
+
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                android:id="@+id/qmll_do_serve"
+                android:layout_width="230pt"
+                android:layout_height="80pt"
+                android:layout_marginLeft="30pt"
+                android:layout_marginBottom="30pt"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_cover_movie"
+                app:layout_constraintLeft_toRightOf="@+id/qmll_collect"
+                app:qmui_backgroundColor="@color/colorPrimary"
+                app:qmui_radius="10pt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="远程"
+                    android:textColor="@color/white"
+                    android:textSize="28pt" />
+
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
