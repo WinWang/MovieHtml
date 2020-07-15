@@ -1,11 +1,11 @@
 package com.winwang.mvvm.http
 
-data class ApiResult<T>(val errorCode: Int, val errorMsg: String, private val data: T) {
+data class BaseResponse<T>(val code: Int, val message: String, private val result: T) {
     fun apiData(): T {
-        if (errorCode == 0) {
-            return data
+        if (code == 200) {
+            return result
         } else {
-            throw ApiException(errorCode, errorMsg)
+            throw ApiException(code, message)
         }
     }
 }

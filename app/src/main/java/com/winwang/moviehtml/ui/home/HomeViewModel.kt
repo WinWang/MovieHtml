@@ -5,8 +5,10 @@ import com.blankj.utilcode.util.LogUtils
 import com.winwang.moviehtml.adapter.BannerBean
 import com.winwang.moviehtml.adapter.HomeAdapter
 import com.winwang.moviehtml.bean.MovieBean
+import com.winwang.moviehtml.http.ApiService
 import com.winwang.moviehtml.utils.SpiderUtils
 import com.winwang.mvvm.base.BaseViewModel
+import com.winwang.mvvm.http.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import org.jsoup.nodes.Document
 
@@ -16,7 +18,7 @@ import org.jsoup.nodes.Document
  */
 class HomeViewModel : BaseViewModel() {
 
-    val liveMovieList: MutableLiveData<ArrayList<MovieBean>> = MutableLiveData() //电影列表数据
+    val liveMovieList: MutableLiveData<List<MovieBean>> = MutableLiveData() //电影列表数据
 
     private var movieList: ArrayList<MovieBean> = arrayListOf()
     private var bannerList: ArrayList<BannerBean> = arrayListOf()
@@ -24,23 +26,31 @@ class HomeViewModel : BaseViewModel() {
     fun getMovieList() {
         launch(
             block = {
-                val documentJob = async(Dispatchers.IO) {
-                    SpiderUtils.initJsoup()
+                //                val documentJob = async(Dispatchers.IO) {
+//                    SpiderUtils.initJsoup()
+//                }
+//                val document = documentJob.await()
+//                document?.run {
+//                    setHotMovie(this)
+//                    setTabData(this)
+//                    movieList.add(MovieBean(type = HomeAdapter.HOME_HEADER, headTitle = "最新电影"))
+//                    setNewMovie(this)
+//                    movieList.add(MovieBean(type = HomeAdapter.HOME_HEADER, headTitle = "最新电视剧"))
+//                    setTV(this)
+//                    movieList.add(MovieBean(type = HomeAdapter.HOME_HEADER, headTitle = "动漫综艺"))
+//                    setCartoon(this)
+//                    movieList.add(MovieBean(type = HomeAdapter.HOME_HEADER, headTitle = "娱乐综艺"))
+//                    setEntertainment(this)
+//                    liveMovieList.value = movieList
+//                }
+
+                var response = RetrofitClient.getRetrofitByUrl("http://192.168.204.202:8080")
+                    .create(ApiService::class.java).movieHome()
+                if (response.code == 200) {
+                    liveMovieList.value = response.apiData()
                 }
-                val document = documentJob.await()
-                document?.run {
-                    setHotMovie(this)
-                    setTabData(this)
-                    movieList.add(MovieBean(type = HomeAdapter.HOME_HEADER, headTitle = "最新电影"))
-                    setNewMovie(this)
-                    movieList.add(MovieBean(type = HomeAdapter.HOME_HEADER, headTitle = "最新电视剧"))
-                    setTV(this)
-                    movieList.add(MovieBean(type = HomeAdapter.HOME_HEADER, headTitle = "动漫综艺"))
-                    setCartoon(this)
-                    movieList.add(MovieBean(type = HomeAdapter.HOME_HEADER, headTitle = "娱乐综艺"))
-                    setEntertainment(this)
-                    liveMovieList.value = movieList
-                }
+
+
             },
             error = {
                 LogUtils.e(it.toString())

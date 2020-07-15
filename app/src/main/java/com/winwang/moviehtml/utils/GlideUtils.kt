@@ -29,7 +29,7 @@ object GlideUtils {
      * 圆角图片
      */
     @SuppressLint("CheckResult")
-    fun loadRadiusNetImage(imageUrl: String, view: ImageView) {
+    fun loadRadiusNetImage(imageUrl: String?, view: ImageView) {
         val roundedCorners = RoundedCorners(10)
         val requestOptions = RequestOptions.bitmapTransform(roundedCorners)
         requestOptions.error(R.drawable.placeholder)

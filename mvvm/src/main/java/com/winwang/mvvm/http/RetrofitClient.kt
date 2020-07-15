@@ -12,23 +12,23 @@ object RetrofitClient {
         .callTimeout(10, TimeUnit.SECONDS)
         .build()
 
-    private val retrofit = Retrofit.Builder()
+    val retrofit = Retrofit.Builder()
         .client(okHttpClient)
         .baseUrl(Constant.BASE_MOVIE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    private fun getRetrofitByUrl(url: String): Retrofit = Retrofit.Builder()
+    fun getRetrofitByUrl(url: String): Retrofit = Retrofit.Builder()
         .client(okHttpClient)
         .baseUrl(url)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val apiService: ApiService = retrofit.create(ApiService::class.java)
-
-    fun apiServiceByUrl(url: String = Constant.BASE_MOVIE_URL): ApiService {
-        return getRetrofitByUrl(url).create(ApiService::class.java)
-    }
+//    val apiService: ApiService = retrofit.create(ApiService::class.java)
+//
+//    fun apiServiceByUrl(url: String = Constant.BASE_MOVIE_URL): ApiService {
+//        return getRetrofitByUrl(url).create(ApiService::class.java)
+//    }
 
 
 }

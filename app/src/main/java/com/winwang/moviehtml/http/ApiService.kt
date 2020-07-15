@@ -1,5 +1,7 @@
-package com.winwang.mvvm.http
+package com.winwang.moviehtml.http
 
+import com.winwang.moviehtml.bean.MovieBean
+import com.winwang.mvvm.http.BaseResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,4 +12,8 @@ interface ApiService {
      */
     @GET("{path}")
     suspend fun movieRequest(@Path("path") path: String = ""): Call<String>
+
+    @GET("/home")
+    suspend fun movieHome(): BaseResponse<List<MovieBean>>
+
 }
