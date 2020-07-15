@@ -1,10 +1,10 @@
 package com.winwang.moviehtml.http
 
 import com.winwang.moviehtml.bean.MovieBean
+import com.winwang.moviehtml.bean.PlayBean
 import com.winwang.mvvm.http.BaseResponse
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiService {
     /**
@@ -15,5 +15,11 @@ interface ApiService {
 
     @GET("/home")
     suspend fun movieHome(): BaseResponse<List<MovieBean>>
+
+
+    @FormUrlEncoded
+    @POST("/home/detail")
+    suspend fun movieDetail(@Field("path") path: String): BaseResponse<PlayBean>
+
 
 }
