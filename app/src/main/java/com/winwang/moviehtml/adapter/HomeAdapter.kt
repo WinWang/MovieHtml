@@ -42,18 +42,23 @@ class HomeAdapter(datalist: ArrayList<MovieBean>) :
                     val bannerView =
                         holder.getView<Banner<BannerBean, HomeBannerAdapater>>(R.id.banner_home)
                     bannerView?.run {
-                        adapter = bannerList?.let { HomeBannerAdapater(it) }
-                        start()
-                        setOnBannerListener(object : OnBannerListener<BannerBean> {
-                            override fun OnBannerClick(data: BannerBean, position: Int) {
-                                Router.newIntent(context as Activity)
-                                    .to(VideoDetailActivity::class.java)
-                                    .putString(VideoDetailActivity.VIDEO_DETAIL_KEY, data.linkUrl)
-                                    .putString(VideoDetailActivity.VIDEO_NAME, data.movieName)
-                                    .putString(VideoDetailActivity.VIDEO_COVER, data.coverUrl)
-                                    .launch()
-                            }
-                        })
+                        bannerList?.run {
+                            adapter = HomeBannerAdapater(bannerList)
+                            start()
+                            setOnBannerListener(object : OnBannerListener<BannerBean> {
+                                override fun OnBannerClick(data: BannerBean, position: Int) {
+                                    Router.newIntent(context as Activity)
+                                        .to(VideoDetailActivity::class.java)
+                                        .putString(
+                                            VideoDetailActivity.VIDEO_DETAIL_KEY,
+                                            data.linkUrl
+                                        )
+                                        .putString(VideoDetailActivity.VIDEO_NAME, data.movieName)
+                                        .putString(VideoDetailActivity.VIDEO_COVER, data.coverUrl)
+                                        .launch()
+                                }
+                            })
+                        }
                     }
                 }
 
