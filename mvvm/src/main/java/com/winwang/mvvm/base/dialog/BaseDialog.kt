@@ -1,4 +1,4 @@
-package com.winwang.mvvm.base
+package com.winwang.mvvm.base.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

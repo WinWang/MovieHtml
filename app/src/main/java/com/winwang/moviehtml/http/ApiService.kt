@@ -16,7 +16,6 @@ interface ApiService {
     @GET("/home")
     suspend fun movieHome(): BaseResponse<MutableList<MovieBean>>
 
-
     @FormUrlEncoded
     @POST("/home/detail")
     suspend fun movieDetail(@Field("path") path: String): BaseResponse<PlayBean>

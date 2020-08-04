@@ -8,8 +8,7 @@ import com.winwang.moviehtml.adapter.HomeAdapter
 import com.winwang.moviehtml.bean.MovieBean
 import com.winwang.moviehtml.ui.detail.VideoDetailActivity
 import com.winwang.moviehtml.utils.Router
-import com.winwang.mvvm.base.BaseVmFragment
-import com.winwang.mvvm.base.IView
+import com.winwang.mvvm.base.fragment.BaseVmFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 

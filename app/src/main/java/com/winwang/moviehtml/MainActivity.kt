@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.winwang.moviehtml.ui.home.HomeFragment
 import com.winwang.moviehtml.ui.live.LiveFragment
-import com.winwang.mvvm.base.BaseActivity
+import com.winwang.mvvm.base.activity.BaseActivity
 import com.winwang.mvvm.common.SimpleFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 

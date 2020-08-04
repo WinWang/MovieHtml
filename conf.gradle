@@ -30,7 +30,6 @@ ext {
             "koin-scope"                 : "org.koin:koin-androidx-scope:${android["koinVersion"]}",
             "koin-viewmodel"             : "org.koin:koin-androidx-viewmodel:${android["koinVersion"]}",
             "koin-ext"                   : "org.koin:koin-androidx-ext:${android["koinVersion"]}",
-            "koin-android"               : "org.koin:koin-android:${android["koinVersion"]}",
 
             "appcompat"                  : "androidx.appcompat:appcompat:${android["androidx"]}",
             "design"                     : "com.google.android.material:material:${android["androidx"]}",

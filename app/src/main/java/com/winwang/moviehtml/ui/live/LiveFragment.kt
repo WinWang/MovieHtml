@@ -5,7 +5,7 @@ import com.winwang.moviehtml.R
 import com.winwang.moviehtml.adapter.LiveHomeAdapter
 import com.winwang.moviehtml.bean.LiveTypeBean
 import com.winwang.moviehtml.utils.Router
-import com.winwang.mvvm.base.BaseVmFragment
+import com.winwang.mvvm.base.fragment.BaseVmFragment
 import kotlinx.android.synthetic.main.fragment_live_layout.*
 
 /**

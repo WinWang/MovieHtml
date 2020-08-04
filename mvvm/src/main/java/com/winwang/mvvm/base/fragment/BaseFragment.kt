@@ -1,12 +1,12 @@
-package com.winwang.mvvm.base
+package com.winwang.mvvm.base.fragment
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
@@ -18,81 +18,74 @@ import com.winwang.mvvm.loadsir.ErrorCallback
 import com.winwang.mvvm.loadsir.LoadingCallback
 import com.winwang.mvvm.loadsir.TimeoutCallback
 import com.winwang.mvvm.widget.LoadingDialog
-import me.jessyan.autosize.AutoSize
 
 /**
  *Created by WinWang on 2020/6/8
  *Description->
  */
-abstract class BaseActivity : AppCompatActivity() {
 
-    abstract fun getLayoutId(): Int
+abstract class BaseFragment : Fragment() {
+
     private var mLoadService: LoadService<Any>? = null
     private lateinit var loadingDialog: LoadingDialog
+    open var mContext: FragmentActivity? = null
     open var mTopBar: QMUITopBar? = null
-    open var mContext: Activity? = null
 
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        AutoSize.autoConvertDensityOfGlobal(this)
-        return super.onCreateView(name, context, attrs)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val mRootView = inflater.inflate(getLayoutId(), container, false)
+        /*******处理是否使用loadSir逻辑 */
+        initTitleBar(mRootView)
+        mContext = requireActivity()
+        return if (useLoadSir() && !loadSirSelf()) {
+            setLoadSir(mRootView)
+            mLoadService?.loadLayout
+        } else {
+            mRootView
+        }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        BarUtils.transparentStatusBar(this)
-        super.onCreate(savedInstanceState)
-        setContentView(getLayoutId())
-        mContext = this
-        initTopBar()
-        initLoadSir()
-        initViewData()
-    }
-
-    private fun initTopBar() {
-        mTopBar = findViewById(R.id.qm_topbar)
-        val fakeStatusBar = findViewById<View>(R.id.fake_status_bar)
+    private fun initTitleBar(mRootView: View?) {
+        mTopBar = mRootView?.findViewById(R.id.qm_topbar)
+        val fakeStatusBar = mRootView?.findViewById<View>(R.id.fake_status_bar)
         fakeStatusBar?.run {
             BarUtils.setStatusBarCustom(this)
         }
         mTopBar?.run {
             if (isShowBack()) {
-                addLeftBackImageButton().setOnClickListener {
-                    finish()
-                }
+                addLeftBackImageButton()
             }
+//            BarUtils.addMarginTopEqualStatusBarHeight(this)
         }
     }
-
-    open fun setTitleName(title: String?) {
-        title?.run {
-            mTopBar?.setTitle(title)
-        }
-    }
-
 
     /**
      * 是否展示返回按钮
      */
     open fun isShowBack(): Boolean {
-        return true
+        return false
     }
 
-
-    open fun initViewData() {
-
-    }
-
-    private fun initLoadSir() {
-        if (getLayoutId() > 0) {
-            val content = findViewById<View>(R.id.view_content_loadsir)
-            content?.let { setLoadSir(it) }
-        }
-    }
+    abstract fun getLayoutId(): Int
 
     private fun setLoadSir(it: View) {
         mLoadService = LoadSir.getDefault().register(it) {
             mLoadService?.showCallback(LoadingCallback::class.java)
             loadNet()
         }
+    }
+
+    //自己设置loadSir布局
+    protected open fun loadSirSelf(): Boolean {
+        return false
+    }
+
+    //使用loadSir
+    protected open fun useLoadSir(): Boolean {
+        return false
     }
 
     open fun loadNet() {
@@ -111,12 +104,12 @@ abstract class BaseActivity : AppCompatActivity() {
         mLoadService?.showCallback(EmptyCallback::class.java)
     }
 
-    fun showLoading() {
-        mLoadService?.showCallback(LoadingCallback::class.java)
-    }
-
     fun showTimeOut() {
         mLoadService?.showCallback(TimeoutCallback::class.java)
+    }
+
+    fun showLoading() {
+        mLoadService?.showCallback(LoadingCallback::class.java)
     }
 
     fun showToast(toastMsg: String) {
@@ -127,13 +120,17 @@ abstract class BaseActivity : AppCompatActivity() {
         if (this::loadingDialog.isInitialized) {
             loadingDialog = LoadingDialog.newInstace()
         }
-        this.loadingDialog.show(supportFragmentManager, loadingString, false)
+        this.loadingDialog.show(childFragmentManager, loadingString, false)
     }
 
     fun hideLoading() {
         if (this::loadingDialog.isInitialized && loadingDialog.isVisible) {
             loadingDialog?.dismiss()
         }
+    }
+
+    open fun hideRefresh() {
+
     }
 
 

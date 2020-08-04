@@ -1,4 +1,4 @@
-package com.winwang.mvvm.base
+package com.winwang.mvvm.base.viewmodel
 
 import android.os.NetworkOnMainThreadException
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonParseException
 import com.winwang.mvvm.enums.ViewStatusEnum
 import com.winwang.mvvm.R
+import com.winwang.mvvm.base.App
 import com.winwang.mvvm.ext.showToast
 import kotlinx.coroutines.*
 import java.net.ConnectException
@@ -95,21 +96,25 @@ open class BaseViewModel : ViewModel() {
         when (e) {
             is ConnectException -> {
                 // 连接失败
-                App.instance.showToast(App.instance.getString(R.string.network_connection_failed))
+                App.instance.showToast(
+                    App.instance.getString(R.string.network_connection_failed))
                 viewStatus.value = ViewStatusEnum.NETWORKERROR
             }
             is SocketTimeoutException -> {
                 // 请求超时
-                App.instance.showToast(App.instance.getString(R.string.network_request_timeout))
+                App.instance.showToast(
+                    App.instance.getString(R.string.network_request_timeout))
                 viewStatus.value = ViewStatusEnum.NETWORKERROR
             }
             is JsonParseException -> {
                 // 数据解析错误
-                App.instance.showToast(App.instance.getString(R.string.api_data_parse_error))
+                App.instance.showToast(
+                    App.instance.getString(R.string.api_data_parse_error))
                 viewStatus.value = ViewStatusEnum.ERROR
             }
             is NetworkOnMainThreadException -> {
-                App.instance.showToast(App.instance.getString(R.string.network_thread_exception))
+                App.instance.showToast(
+                    App.instance.getString(R.string.network_thread_exception))
                 viewStatus.value = ViewStatusEnum.ERROR
             }
             else -> {

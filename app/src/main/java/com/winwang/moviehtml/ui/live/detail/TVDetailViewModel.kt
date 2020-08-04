@@ -3,7 +3,7 @@ package com.winwang.moviehtml.ui.live.detail
 import androidx.lifecycle.MutableLiveData
 import com.winwang.moviehtml.common.Constant
 import com.winwang.moviehtml.ext.regexPlayUrl
-import com.winwang.mvvm.base.BaseViewModel
+import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import org.jsoup.Jsoup
 

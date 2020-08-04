@@ -1,16 +1,10 @@
 package com.winwang.moviehtml.ui.detail
 
 import androidx.lifecycle.MutableLiveData
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.winwang.moviehtml.common.Constant
 import com.winwang.moviehtml.http.ApiService
-import com.winwang.moviehtml.utils.SpiderUtils
-import com.winwang.mvvm.base.BaseViewModel
+import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.http.RetrofitClient
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import org.jsoup.Jsoup
 
 /**
  *Created by WinWang on 2020/6/12

@@ -1,8 +1,9 @@
-package com.winwang.mvvm.base
+package com.winwang.mvvm.base.activity
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
 
 /**

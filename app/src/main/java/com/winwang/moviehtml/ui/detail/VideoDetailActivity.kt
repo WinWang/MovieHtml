@@ -4,9 +4,7 @@ import androidx.lifecycle.Observer
 import cn.jzvd.Jzvd
 import com.winwang.moviehtml.R
 import com.winwang.moviehtml.utils.GlideUtils
-import com.winwang.mvvm.base.BaseVmActivity
-import com.youth.banner.util.LogUtils
-import kotlinx.android.synthetic.main.activity_tv_detail_layout.*
+import com.winwang.mvvm.base.activity.BaseVmActivity
 import kotlinx.android.synthetic.main.activity_video_detail_layout.*
 
 /**

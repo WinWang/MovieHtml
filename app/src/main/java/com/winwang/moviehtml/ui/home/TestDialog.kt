@@ -1,7 +1,7 @@
 package com.winwang.moviehtml.ui.home
 
 import com.winwang.moviehtml.R
-import com.winwang.mvvm.base.BaseVmDialog
+import com.winwang.mvvm.base.dialog.BaseVmDialog
 
 /**
  *Created by WinWang on 2020/6/16

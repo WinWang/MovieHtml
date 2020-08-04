@@ -3,7 +3,7 @@ package com.winwang.moviehtml.ui.live.detail
 import androidx.lifecycle.Observer
 import cn.jzvd.Jzvd
 import com.winwang.moviehtml.R
-import com.winwang.mvvm.base.BaseVmActivity
+import com.winwang.mvvm.base.activity.BaseVmActivity
 import kotlinx.android.synthetic.main.activity_tv_detail_layout.*
 
 

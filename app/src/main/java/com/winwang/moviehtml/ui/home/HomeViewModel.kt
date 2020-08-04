@@ -3,15 +3,11 @@ package com.winwang.moviehtml.ui.home
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.LogUtils
 import com.winwang.moviehtml.adapter.BannerBean
-import com.winwang.moviehtml.adapter.HomeAdapter
 import com.winwang.moviehtml.bean.MovieBean
 import com.winwang.moviehtml.common.Constant
 import com.winwang.moviehtml.http.ApiService
-import com.winwang.moviehtml.utils.SpiderUtils
-import com.winwang.mvvm.base.BaseViewModel
+import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.http.RetrofitClient
-import kotlinx.coroutines.Dispatchers
-import org.jsoup.nodes.Document
 
 /**
  *Created by WinWang on 2020/6/8
