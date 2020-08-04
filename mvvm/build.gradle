@@ -48,6 +48,10 @@ dependencies {
 
     api rootProject.ext.dependencies["appcompat"]
     api rootProject.ext.dependencies["core-ktx"]
+    api rootProject.ext.dependencies["koin-scope"]
+    api rootProject.ext.dependencies["koin-viewmodel"]
+    api rootProject.ext.dependencies["koin-ext"]
+    api rootProject.ext.dependencies["koin-android"]
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["navi-fragment"]
     api rootProject.ext.dependencies["navi-ui"]

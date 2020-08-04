@@ -12,7 +12,7 @@ import me.jessyan.autosize.unit.Subunits
  *Created by WinWang on 2020/6/5
  *Description->
  */
-class App : Application() {
+open class App : Application() {
 
     companion object {
         lateinit var instance: App
@@ -22,6 +22,11 @@ class App : Application() {
         super.onCreate()
         instance = this
         init()
+        initMethod()
+    }
+
+    open fun initMethod() {
+
     }
 
 

@@ -14,6 +14,9 @@ ext {
             VOkhttp          : "4.3.1",
             VRxlifecycle     : "3.1.0",
             androidx         : "1.1.0",
+
+            koinVersion      : "2.0.1",
+
     ]
 
     dependencies = [
@@ -23,6 +26,11 @@ ext {
             "navi-ui-ktx"                : "androidx.navigation:navigation-ui-ktx:${android["navigation"]}",
             "navi-frag-ktx"              : "androidx.navigation:navigation-fragment-ktx:${android["navigation"]}",
             "lifecycle"                  : "androidx.lifecycle:lifecycle-extensions:${android["lifecycle"]}",
+            //koin
+            "koin-scope"                 : "org.koin:koin-androidx-scope:${android["koinVersion"]}",
+            "koin-viewmodel"             : "org.koin:koin-androidx-viewmodel:${android["koinVersion"]}",
+            "koin-ext"                   : "org.koin:koin-androidx-ext:${android["koinVersion"]}",
+            "koin-android"               : "org.koin:koin-android:${android["koinVersion"]}",
 
             "appcompat"                  : "androidx.appcompat:appcompat:${android["androidx"]}",
             "design"                     : "com.google.android.material:material:${android["androidx"]}",
