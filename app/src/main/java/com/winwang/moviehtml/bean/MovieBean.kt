@@ -14,5 +14,5 @@ data class MovieBean(
     val type: Int = 0,//Recycleview类型type
     val headTitle: String = "",  //头布局的title,
     val bannerList: MutableList<BannerBean> = mutableListOf(),
-    override var itemType: Int = type //实现BRVAH多布局重写
+    override var itemType: Int = 0 //实现BRVAH多布局重写
 ) : MultiItemEntity
