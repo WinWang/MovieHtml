@@ -3,6 +3,7 @@ package com.winwang.moviehtml
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.winwang.moviehtml.ui.home.HomeFragment
+import com.winwang.moviehtml.ui.hot.HotFragment
 import com.winwang.moviehtml.ui.live.LiveFragment
 import com.winwang.mvvm.base.activity.BaseActivity
 import com.winwang.mvvm.common.SimpleFragmentPagerAdapter
@@ -26,7 +27,7 @@ class MainActivity : BaseActivity() {
         }
         fragmentList?.run {
             add(HomeFragment())
-            add(LiveFragment())
+            add(HotFragment())
             add(LiveFragment())
             add(LiveFragment())
         }

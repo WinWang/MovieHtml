@@ -1,21 +1,25 @@
 package com.winwang.moviehtml.ui.hot
 
-import com.winwang.mvvm.base.fragment.BaseVmFragment
+import com.winwang.moviehtml.R
+import com.winwang.mvvm.base.fragment.BaseVmDIFragment
+import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  *Created by WinWang on 2020/8/4
  *Description->
  */
-class HotFragment : BaseVmFragment<HotViewModel>() {
+class HotFragment : BaseVmDIFragment() {
 
-     mViewModel :HotViewModel by viewModel()
+    private val hotViewModel: HotViewModel by viewModel()
 
-    override fun viewModelClass(): Class<HotViewModel> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun initViewModel(): BaseViewModel = hotViewModel
+
+    override fun getLayoutId(): Int = R.layout.fragment_hot_layout
+
+    override fun initView() {
+        super.initView()
+        mTopBar?.setTitle(hotViewModel.test())
     }
 
-    override fun getLayoutId(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }

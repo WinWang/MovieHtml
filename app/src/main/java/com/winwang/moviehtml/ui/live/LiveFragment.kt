@@ -52,7 +52,7 @@ class LiveFragment : BaseVmFragment<LiveViewModel>() {
         super.initObserve()
         mViewModel.run {
             liveTypeList.observe(viewLifecycleOwner, Observer {
-                adapter.setNewData(it)
+                adapter.setNewInstance(it)
             })
         }
     }

@@ -1,6 +1,8 @@
 package com.winwang.mvvm.base
 
 import android.app.Application
+import android.content.Context
+import androidx.multidex.MultiDex
 import com.kingja.loadsir.core.LoadSir
 import com.winwang.mvvm.common.ActivityLifecycleCallbacksAdapter
 import com.winwang.mvvm.common.ActivityManager
@@ -66,6 +68,11 @@ open class App : Application() {
 
             )
         )
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
 
