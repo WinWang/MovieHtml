@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
@@ -38,6 +39,11 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //为了在自定义组件view中获取到lifecycleOwner,使用livedata
+        ViewTreeLifecycleOwner.set(
+            window.decorView,
+            this
+        )
         BarUtils.transparentStatusBar(this)
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())

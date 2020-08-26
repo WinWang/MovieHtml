@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.lifecycle.ViewTreeViewModelStoreOwner
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
@@ -42,11 +44,16 @@ abstract class BaseFragment : Fragment() {
         mContext = requireActivity()
         return if (useLoadSir() && !loadSirSelf()) {
             setLoadSir(mRootView)
+            ViewTreeLifecycleOwner.set(mLoadService!!.loadLayout, this)
+            ViewTreeViewModelStoreOwner.set(mLoadService!!.loadLayout, this)
             mLoadService?.loadLayout
         } else {
+            ViewTreeLifecycleOwner.set(mRootView, this)
+            ViewTreeViewModelStoreOwner.set(mRootView, this)
             mRootView
         }
     }
+
 
     private fun initTitleBar(mRootView: View?) {
         mTopBar = mRootView?.findViewById(R.id.qm_topbar)

@@ -6,9 +6,9 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 29,
 
-            corektx          : "1.3.0",
+            corektx          : "1.3.1",
             navigation       : "2.2.2",
-            lifecycle        : "2.2.0",
+            lifecycle        : "2.3.0-alpha06",
 
             VRetrofitSdk     : "2.7.1",
             VOkhttp          : "4.3.1",
@@ -16,6 +16,8 @@ ext {
             androidx         : "1.1.0",
 
             koinVersion      : "2.0.1",
+            ktxActivity      : "1.1.0",
+            ktxFragment      : "1.2.0",
 
     ]
 
@@ -25,7 +27,19 @@ ext {
             "navi-ui"                    : "androidx.navigation:navigation-ui:${android["navigation"]}",
             "navi-ui-ktx"                : "androidx.navigation:navigation-ui-ktx:${android["navigation"]}",
             "navi-frag-ktx"              : "androidx.navigation:navigation-fragment-ktx:${android["navigation"]}",
-            "lifecycle"                  : "androidx.lifecycle:lifecycle-extensions:${android["lifecycle"]}",
+            "activity"                   : "androidx.activity:activity-ktx:${android["ktxActivity"]}",
+            "fragment"                   : "androidx.fragment:fragment-ktx:${android["ktxFragment"]}",
+
+            //lifecycle(lifecycle-extensions 中的 API 已弃用。您可以为特定 Lifecycle 工件添加所需的依赖项。)
+            "lifecycle"                  : "androidx.lifecycle:lifecycle-runtime-ktx:${android["lifecycle"]}",
+            "lifecycle-viewmodel"        : "androidx.lifecycle:lifecycle-viewmodel-ktx:${android["lifecycle"]}",
+            "lifecycle-livedata"         : "androidx.lifecycle:lifecycle-livedata-ktx:${android["lifecycle"]}",
+            "lifecycle-compiler"         : "androidx.lifecycle:lifecycle-compiler:${android["lifecycle"]}",
+            "lifecycle-save-state"       : "androidx.lifecycle:lifecycle-viewmodel-savedstate:${android["lifecycle"]}",
+            //// alternately - if using Java8, use the following instead of lifecycle-compiler(用了这个就不用compiler)
+            "lifecycle-common"           : "androidx.lifecycle:lifecycle-common-java8:${android["lifecycle"]}",
+
+
             //koin
             "koin-scope"                 : "org.koin:koin-androidx-scope:${android["koinVersion"]}",
             "koin-viewmodel"             : "org.koin:koin-androidx-viewmodel:${android["koinVersion"]}",

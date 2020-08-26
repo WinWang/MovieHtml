@@ -3,6 +3,7 @@ package com.winwang.moviehtml.ui.hot
 import com.winwang.moviehtml.R
 import com.winwang.mvvm.base.fragment.BaseVmDIFragment
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
+import kotlinx.android.synthetic.main.fragment_hot_layout.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**

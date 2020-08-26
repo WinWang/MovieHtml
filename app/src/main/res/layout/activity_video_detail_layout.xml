@@ -13,6 +13,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.winwang.moviehtml.widget.HotViewTest
+            android:layout_width="match_parent"
+            android:layout_height="200pt" />
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

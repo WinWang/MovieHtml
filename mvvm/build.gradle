@@ -1,10 +1,11 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
         minSdkVersion 19
@@ -45,6 +46,13 @@ dependencies {
     api rootProject.ext.dependencies["loadSir"]
     api rootProject.ext.dependencies["avi-loading"]
     api rootProject.ext.dependencies["lifecycle"]
+    api rootProject.ext.dependencies["lifecycle-viewmodel"]
+    api rootProject.ext.dependencies["lifecycle-livedata"]
+    api rootProject.ext.dependencies["lifecycle-save-state"]
+    api rootProject.ext.dependencies["activity"]
+    api rootProject.ext.dependencies["fragment"]
+    kapt rootProject.ext.dependencies["lifecycle-compiler"]
+
     api rootProject.ext.dependencies["core-ktx"]
     api rootProject.ext.dependencies["avi-loading"]
     api rootProject.ext.dependencies["utilcode"]
