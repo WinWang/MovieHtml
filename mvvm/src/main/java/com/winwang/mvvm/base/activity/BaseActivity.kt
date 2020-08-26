@@ -39,14 +39,14 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        BarUtils.transparentStatusBar(this)
+        super.onCreate(savedInstanceState)
+        setContentView(getLayoutId())
         //为了在自定义组件view中获取到lifecycleOwner,使用livedata
         ViewTreeLifecycleOwner.set(
             window.decorView,
             this
         )
-        BarUtils.transparentStatusBar(this)
-        super.onCreate(savedInstanceState)
-        setContentView(getLayoutId())
         mContext = this
         initTopBar()
         initLoadSir()

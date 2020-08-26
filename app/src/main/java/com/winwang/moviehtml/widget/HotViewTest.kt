@@ -13,9 +13,8 @@ import kotlinx.android.synthetic.main.hot_test_view_layout.view.*
  */
 class HotViewTest @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : BaseViewComponent<HomeViewModel>(context, attrs, defStyleAttr) {
+    attrs: AttributeSet? = null
+) : BaseViewComponent<HomeViewModel>(context, attrs) {
 
     override fun viewModelClass() = HomeViewModel::class.java
 
@@ -26,16 +25,16 @@ class HotViewTest @JvmOverloads constructor(
 
     override fun initData() {
         super.initData()
-//        mViewModel.getMovieList()
+        mViewModel.testComponent()
     }
 
     override fun initObserve() {
         super.initObserve()
-//        lifecycleOwner?.run {
-//            mViewModel.liveMovieList.observe(this, Observer {
-//                tv_hot_title.text = it.toString()
-//            })
-//        }
+        lifecycleOwner?.run {
+            mViewModel.liveMovieList.observe(this, Observer {
+                tv_hot_title.text = it.toString()
+            })
+        }
 
     }
 

@@ -38,4 +38,11 @@
         app:menu="@menu/bottom_nav_menu" />
 
 
+
+
+<!--    <com.winwang.mvvm.base.view.BaseViewComponent-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,4 +38,10 @@ class HomeViewModel : BaseViewModel() {
     }
 
 
+    fun testComponent(){
+        println(123)
+    }
+
+
+
 }

@@ -13,32 +13,59 @@ import com.winwang.mvvm.base.viewmodel.BaseViewModel
  */
 abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    attrs: AttributeSet? = null
 ) :
     FrameLayout(
         context,
-        attrs,
-        defStyleAttr
+        attrs
     ), LifeObserver {
 
     protected lateinit var lifecycleOwner: LifecycleOwner
     private lateinit var viewModelStoreOwner: ViewModelStoreOwner
+    open var mContext: Context = context
 
     protected lateinit var mViewModel: VM
 
     init {
+//        lifecycleOwner = this.findViewTreeLifecycleOwner()!!
+//        viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
 
     }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-//        lifecycleOwner = this.findViewTreeLifecycleOwner()!!
-//        viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
+        lifecycleOwner = getLifeOwner()!!
+        viewModelStoreOwner = getViewModelOwner()!!
         initView()
         initViewModel()
         initObserve()
         initData()
+
+    }
+
+
+    fun getLifeOwner(): LifecycleOwner? {
+        if (mContext != null) {
+            if (mContext is LifecycleOwner) {
+                return mContext as LifecycleOwner
+            } else {
+                return null
+            }
+        } else {
+            return null
+        }
+    }
+
+    fun getViewModelOwner(): ViewModelStoreOwner? {
+        if (mContext != null) {
+            if (mContext is LifecycleOwner) {
+                return mContext as ViewModelStoreOwner
+            } else {
+                return null
+            }
+        } else {
+            return null
+        }
     }
 
 
@@ -63,7 +90,7 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
     }
 
     private fun initViewModel() {
-//        mViewModel = ViewModelProvider(viewModelStoreOwner).get(viewModelClass())
+        mViewModel = ViewModelProvider(viewModelStoreOwner).get(viewModelClass())
     }
 
     abstract fun viewModelClass(): Class<VM>
