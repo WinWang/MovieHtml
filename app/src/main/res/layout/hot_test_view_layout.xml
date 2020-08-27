@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.winwang.moviehtml.widget.HotViewTest xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#00ffff">
 
 
-    <TextView
-        android:id="@+id/tv_hot_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="hahahaha"
-        android:textSize="30pt" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_hot_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="hahahaha"
+            android:textSize="30pt" />
 
 
-    <ImageView
-        android:id="@+id/iv_hot_image"
-        android:layout_width="300pt"
-        android:layout_height="300pt"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100pt"
-        android:src="@drawable/abc_vector_test" />
+        <ImageView
+            android:id="@+id/iv_hot_image"
+            android:layout_width="300pt"
+            android:layout_height="300pt"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100pt"
+            android:src="@drawable/abc_vector_test" />
+
+    </LinearLayout>
 
 
 </com.winwang.moviehtml.widget.HotViewTest>

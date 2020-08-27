@@ -25,7 +25,7 @@ class HotViewTest @JvmOverloads constructor(
 
     override fun initData() {
         super.initData()
-        mViewModel.testComponent()
+        mViewModel.getMovieList()
     }
 
     override fun initObserve() {
@@ -33,6 +33,7 @@ class HotViewTest @JvmOverloads constructor(
         lifecycleOwner?.run {
             mViewModel.liveMovieList.observe(this, Observer {
                 tv_hot_title.text = it.toString()
+                println(it.toString()+">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
             })
         }
 

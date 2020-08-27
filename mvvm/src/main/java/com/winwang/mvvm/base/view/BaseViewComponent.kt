@@ -27,8 +27,8 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
     protected lateinit var mViewModel: VM
 
     init {
-//        lifecycleOwner = this.findViewTreeLifecycleOwner()!!
-//        viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
+        lifecycleOwner = this.findViewTreeLifecycleOwner()!!
+        viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
 
     }
 

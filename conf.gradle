@@ -1,7 +1,7 @@
 ext {
     android = [
             compileSdkVersion: 29,
-            buildToolsVersion: "29.0.3",
+            buildToolsVersion: "29.0.4",
 
             minSdkVersion    : 19,
             targetSdkVersion : 29,
@@ -13,7 +13,7 @@ ext {
             VRetrofitSdk     : "2.7.1",
             VOkhttp          : "4.3.1",
             VRxlifecycle     : "3.1.0",
-            androidx         : "1.1.0",
+            androidxAppCompat: "1.2.0",
 
             koinVersion      : "2.0.1",
             ktxActivity      : "1.1.0",
@@ -45,11 +45,11 @@ ext {
             "koin-viewmodel"             : "org.koin:koin-androidx-viewmodel:${android["koinVersion"]}",
             "koin-ext"                   : "org.koin:koin-androidx-ext:${android["koinVersion"]}",
 
-            "appcompat"                  : "androidx.appcompat:appcompat:${android["androidx"]}",
-            "design"                     : "com.google.android.material:material:${android["androidx"]}",
-            "annotations"                : "androidx.annotation:annotation:${android["androidx"]}",
-            "recyclerview-v7"            : "androidx.recyclerview:recyclerview:${android["androidx"]}",
-            "cardview"                   : "androidx.cardview:cardview:${android["androidx"]}",
+            "appcompat"                  : "androidx.appcompat:appcompat:${android["androidxAppCompat"]}",
+            "design"                     : "com.google.android.material:material:${android["androidxAppCompat"]}",
+            "annotations"                : "androidx.annotation:annotation:${android["androidxAppCompat"]}",
+            "recyclerview-v7"            : "androidx.recyclerview:recyclerview:${android["androidxAppCompat"]}",
+            "cardview"                   : "androidx.cardview:cardview:${android["androidxAppCompat"]}",
             "multidex"                   : 'androidx.multidex:multidex:2.0.0',
 
             "glide"                      : "com.github.bumptech.glide:glide:4.11.0",

@@ -11,5 +11,7 @@
         android:layout_height="400dp" />
 
 
+    <include layout="@layout/hot_test_view_layout" />
+
 
 </LinearLayout>
