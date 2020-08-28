@@ -13,8 +13,6 @@ import com.winwang.mvvm.enums.ViewStatusEnum
  */
 abstract class BaseVmDIFragment : BaseFragment() {
 
-    private var lazyLoaded = false
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -67,21 +65,6 @@ abstract class BaseVmDIFragment : BaseFragment() {
      */
     open fun initData() {
         // Override if need
-    }
-
-    /**
-     * 懒加载数据
-     */
-    open fun lazyLoadData() {
-        // Override if need
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (!lazyLoaded) {
-            lazyLoadData()
-            lazyLoaded = true
-        }
     }
 
 

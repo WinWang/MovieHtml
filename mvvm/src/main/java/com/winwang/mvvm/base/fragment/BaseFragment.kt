@@ -32,6 +32,7 @@ abstract class BaseFragment : Fragment() {
     private lateinit var loadingDialog: LoadingDialog
     open var mContext: FragmentActivity? = null
     open var mTopBar: QMUITopBar? = null
+    private var lazyLoaded = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,12 +45,8 @@ abstract class BaseFragment : Fragment() {
         mContext = requireActivity()
         return if (useLoadSir() && !loadSirSelf()) {
             setLoadSir(mRootView)
-            ViewTreeLifecycleOwner.set(mLoadService!!.loadLayout, this)
-            ViewTreeViewModelStoreOwner.set(mLoadService!!.loadLayout, this)
             mLoadService?.loadLayout
         } else {
-            ViewTreeLifecycleOwner.set(mRootView, this)
-            ViewTreeViewModelStoreOwner.set(mRootView, this)
             mRootView
         }
     }
@@ -98,6 +95,22 @@ abstract class BaseFragment : Fragment() {
     open fun loadNet() {
 
     }
+
+    /**
+     * 懒加载数据
+     */
+    open fun lazyLoadData() {
+        // Override if need
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!lazyLoaded) {
+            lazyLoadData()
+            lazyLoaded = true
+        }
+    }
+
 
     fun showError() {
         mLoadService?.showCallback(ErrorCallback::class.java)

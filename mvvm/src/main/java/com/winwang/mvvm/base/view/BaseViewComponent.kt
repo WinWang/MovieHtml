@@ -1,9 +1,12 @@
 package com.winwang.mvvm.base.view
 
 import android.content.Context
+import android.opengl.Visibility
 import android.util.AttributeSet
+import android.view.View
 import android.widget.FrameLayout
 import androidx.lifecycle.*
+import com.blankj.utilcode.util.LogUtils
 import com.winwang.mvvm.base.lifecycle.LifeObserver
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 
@@ -26,21 +29,21 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
 
     protected lateinit var mViewModel: VM
 
-    init {
-        lifecycleOwner = this.findViewTreeLifecycleOwner()!!
-        viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
-
-    }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        lifecycleOwner = getLifeOwner()!!
-        viewModelStoreOwner = getViewModelOwner()!!
+    }
+
+    open fun init() {
+        lifecycleOwner = this.findViewTreeLifecycleOwner()!!
+        viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
+        lifecycleOwner.lifecycle.addObserver(this)
+//        lifecycleOwner = getLifeOwner()!!
+//        viewModelStoreOwner = getViewModelOwner()!!
         initView()
         initViewModel()
         initObserve()
         initData()
-
     }
 
 
@@ -66,6 +69,23 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
         } else {
             return null
         }
+    }
+
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        owner.lifecycle.removeObserver(this)
+    }
+
+    override fun onCreate(owner: LifecycleOwner) {
+        LogUtils.d("onCreate>>>>>>>>>>")
+    }
+
+    override fun onPause(owner: LifecycleOwner) {
+        LogUtils.d("onPause>>>>>>>>>>")
+    }
+
+    override fun onResume(owner: LifecycleOwner) {
+        LogUtils.d("onResume>>>>>>>>>>")
     }
 
 

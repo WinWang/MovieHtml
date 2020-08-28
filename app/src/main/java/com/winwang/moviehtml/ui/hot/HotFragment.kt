@@ -4,6 +4,7 @@ import com.winwang.moviehtml.R
 import com.winwang.mvvm.base.fragment.BaseVmDIFragment
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_hot_layout.*
+import kotlinx.android.synthetic.main.hot_test_view_layout.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -21,6 +22,7 @@ class HotFragment : BaseVmDIFragment() {
     override fun initView() {
         super.initView()
         mTopBar?.setTitle(hotViewModel.test())
+        hot_view.init()
     }
 
 }

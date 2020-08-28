@@ -49,8 +49,8 @@ dependencies {
     api rootProject.ext.dependencies["lifecycle-viewmodel"]
     api rootProject.ext.dependencies["lifecycle-livedata"]
     api rootProject.ext.dependencies["lifecycle-save-state"]
-//    api rootProject.ext.dependencies["activity"]
-//    api rootProject.ext.dependencies["fragment"]
+    api rootProject.ext.dependencies["activity"]
+    api rootProject.ext.dependencies["fragment"]
     kapt rootProject.ext.dependencies["lifecycle-compiler"]
 
     api rootProject.ext.dependencies["core-ktx"]

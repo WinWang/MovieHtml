@@ -70,20 +70,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
         // Override if need
     }
 
-    /**
-     * 懒加载数据
-     */
-    open fun lazyLoadData() {
-        // Override if need
-    }
 
-    override fun onResume() {
-        super.onResume()
-        if (!lazyLoaded) {
-            lazyLoadData()
-            lazyLoaded = true
-        }
-    }
 
 
     private fun initViewModel() {

@@ -2,8 +2,9 @@ package com.winwang.moviehtml.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.winwang.moviehtml.ui.home.HomeViewModel
+import com.winwang.moviehtml.widget.viewmodel.HotViewViewModel
 import com.winwang.mvvm.base.view.BaseViewComponent
 import kotlinx.android.synthetic.main.hot_test_view_layout.view.*
 
@@ -14,9 +15,10 @@ import kotlinx.android.synthetic.main.hot_test_view_layout.view.*
 class HotViewTest @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : BaseViewComponent<HomeViewModel>(context, attrs) {
+) : BaseViewComponent<HotViewViewModel>(context, attrs) {
 
-    override fun viewModelClass() = HomeViewModel::class.java
+    override fun viewModelClass() = HotViewViewModel::class.java
+
 
     override fun initView() {
         super.initView()
@@ -26,12 +28,13 @@ class HotViewTest @JvmOverloads constructor(
     override fun initData() {
         super.initData()
         mViewModel.getMovieList()
+
     }
 
     override fun initObserve() {
         super.initObserve()
         lifecycleOwner?.run {
-            mViewModel.liveMovieList.observe(this, Observer {
+            mViewModel.movieListLiveData.observe(this, Observer {
                 tv_hot_title.text = it.toString()
                 println(it.toString()+">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
             })
