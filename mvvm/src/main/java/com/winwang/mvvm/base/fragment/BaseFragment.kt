@@ -15,6 +15,7 @@ import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.widget.QMUITopBar
 import com.winwang.mvvm.R
+import com.winwang.mvvm.base.view.BaseViewComponent
 import com.winwang.mvvm.loadsir.EmptyCallback
 import com.winwang.mvvm.loadsir.ErrorCallback
 import com.winwang.mvvm.loadsir.LoadingCallback
@@ -34,12 +35,14 @@ abstract class BaseFragment : Fragment() {
     open var mTopBar: QMUITopBar? = null
     private var lazyLoaded = false
 
+    lateinit var mRootView: View
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val mRootView = inflater.inflate(getLayoutId(), container, false)
+        mRootView = inflater.inflate(getLayoutId(), container, false)
         /*******处理是否使用loadSir逻辑 */
         initTitleBar(mRootView)
         mContext = requireActivity()
@@ -65,6 +68,23 @@ abstract class BaseFragment : Fragment() {
 //            BarUtils.addMarginTopEqualStatusBarHeight(this)
         }
     }
+
+
+    fun initViewComponent() {
+        mRootView?.run {
+            if (this is ViewGroup) {
+                var vp: ViewGroup = mRootView as ViewGroup
+                (0..vp.childCount).forEachIndexed { index, item ->
+                    val childAt = this.getChildAt(index)
+                    if (childAt is BaseViewComponent<*>) {
+                        val baseViewComponent = childAt as BaseViewComponent<*>
+                        baseViewComponent.init()
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
      * 是否展示返回按钮
@@ -109,6 +129,12 @@ abstract class BaseFragment : Fragment() {
             lazyLoadData()
             lazyLoaded = true
         }
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        initViewComponent()
     }
 
 

@@ -23,12 +23,13 @@ class HomeViewModel : BaseViewModel() {
     fun getMovieList() {
         movieList.clear()
         bannerList.clear()
+
         launch(
             block = {
                 var response = RetrofitClient.getRetrofitByUrl(Constant.BASE_HOST)
                     .create(ApiService::class.java).movieHome()
                 if (response.code == 200) {
-                    liveMovieList.value = response.apiData()
+                    liveMovieList.value = response.resultData()
                 }
             },
             error = {

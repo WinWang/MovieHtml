@@ -1,9 +1,7 @@
 package com.winwang.moviehtml.ui.hot
 
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.asLiveData
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 /**
  *Created by WinWang on 2020/7/15
@@ -13,11 +11,10 @@ import kotlinx.coroutines.launch
 class HotViewModel(private val homeRepository: HomeRepository) : BaseViewModel() {
 
 
-
     fun getTestData() {
-        viewModelScope.async {  }
         launch(block = {
-            homeRepository.getTestData()
+            val asLiveData = homeRepository.getTestData()
+                .asLiveData()
         })
     }
 

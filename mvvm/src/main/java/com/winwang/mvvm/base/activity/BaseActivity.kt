@@ -5,15 +5,19 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.lifecycle.ViewTreeViewModelStoreOwner
+import androidx.savedstate.ViewTreeSavedStateRegistryOwner
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.widget.QMUITopBar
 import com.winwang.mvvm.R
+import com.winwang.mvvm.base.view.BaseViewComponent
 import com.winwang.mvvm.loadsir.EmptyCallback
 import com.winwang.mvvm.loadsir.ErrorCallback
 import com.winwang.mvvm.loadsir.LoadingCallback
@@ -41,17 +45,22 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         BarUtils.transparentStatusBar(this)
         super.onCreate(savedInstanceState)
+        initViewTreeOwners()
         setContentView(getLayoutId())
-        //为了在自定义组件view中获取到lifecycleOwner,使用livedata
-        ViewTreeLifecycleOwner.set(
-            window.decorView,
-            this
-        )
         mContext = this
         initTopBar()
         initLoadSir()
         initViewData()
     }
+
+    fun initViewTreeOwners() {
+        // Set the view tree owners before setting the content view so that the inflation process
+        // and attach listeners will see them already present
+        ViewTreeLifecycleOwner.set(window.decorView, this)
+        ViewTreeViewModelStoreOwner.set(window.decorView, this)
+        ViewTreeSavedStateRegistryOwner.set(window.decorView, this)
+    }
+
 
     private fun initTopBar() {
         mTopBar = findViewById(R.id.qm_topbar)
@@ -90,7 +99,9 @@ abstract class BaseActivity : AppCompatActivity() {
     private fun initLoadSir() {
         if (getLayoutId() > 0) {
             val content = findViewById<View>(R.id.view_content_loadsir)
-            content?.let { setLoadSir(it) }
+            content?.let {
+                setLoadSir(it)
+            }
         }
     }
 
@@ -98,6 +109,25 @@ abstract class BaseActivity : AppCompatActivity() {
         mLoadService = LoadSir.getDefault().register(it) {
             mLoadService?.showCallback(LoadingCallback::class.java)
             loadNet()
+        }
+    }
+
+    fun initViewComponent(it: View) {
+        it?.run {
+            if (this is ViewGroup) {
+                var vp: ViewGroup = it as ViewGroup
+                (0..vp.childCount).forEachIndexed { index, item ->
+                    val childAt = this.getChildAt(index)
+                    if (childAt is ViewGroup) {
+                        if (childAt is BaseViewComponent<*>) {
+                            val baseViewComponent = childAt as BaseViewComponent<*>
+                            baseViewComponent.init()
+                        } else {
+                            initViewComponent(childAt)
+                        }
+                    }
+                }
+            }
         }
     }
 

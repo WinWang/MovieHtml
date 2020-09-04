@@ -2,6 +2,7 @@ package com.winwang.moviehtml.ui.home
 
 import com.winwang.moviehtml.R
 import com.winwang.mvvm.base.dialog.BaseVmDialog
+import kotlinx.android.synthetic.main.hot_test_view_layout.*
 
 /**
  *Created by WinWang on 2020/6/16
@@ -17,11 +18,14 @@ class TestDialog : BaseVmDialog<HomeViewModel>() {
 
     override fun initData() {
         loadNet()
+        hot_view.init()
+        hot_view.getMovieList()
     }
 
     override fun loadNet() {
         super.loadNet()
         mViewModel.getMovieList()
+
     }
 
 

@@ -38,6 +38,7 @@
         app:menu="@menu/bottom_nav_menu" />
 
 
+    <include layout="@layout/hot_test_view_layout"/>
 
 
 <!--    <com.winwang.mvvm.base.view.BaseViewComponent-->

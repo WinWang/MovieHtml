@@ -25,11 +25,10 @@ class HotViewTest @JvmOverloads constructor(
         tv_hot_title?.text = "这是我修改的标题"
     }
 
-    override fun initData() {
-        super.initData()
+    open fun getMovieList(){
         mViewModel.getMovieList()
-
     }
+
 
     override fun initObserve() {
         super.initObserve()

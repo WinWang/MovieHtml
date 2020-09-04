@@ -1,6 +1,7 @@
 package com.winwang.mvvm.http
 
-import com.winwang.mvvm.common.Constant
+import android.text.TextUtils
+import com.winwang.mvvm.common.UrlConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,11 +18,11 @@ object RetrofitClient {
 
     val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl(Constant.BASE_MOVIE_URL)
+        .baseUrl(UrlConfig.BASE_MOVIE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun getRetrofitByUrl(url: String): Retrofit = Retrofit.Builder()
+    fun getRetrofitByUrl(url: String = UrlConfig.BASE_HOST): Retrofit = Retrofit.Builder()
         .client(okHttpClient)
         .baseUrl(url)
         .addConverterFactory(GsonConverterFactory.create())

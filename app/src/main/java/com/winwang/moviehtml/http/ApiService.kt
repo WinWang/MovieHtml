@@ -3,6 +3,7 @@ package com.winwang.moviehtml.http
 import com.winwang.moviehtml.bean.MovieBean
 import com.winwang.moviehtml.bean.PlayBean
 import com.winwang.mvvm.http.BaseResponse
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -15,6 +16,9 @@ interface ApiService {
 
     @GET("/home")
     suspend fun movieHome(): BaseResponse<MutableList<MovieBean>>
+
+    @GET("/home")
+    suspend fun flowMovieHome(): Flow<BaseResponse<MutableList<MovieBean>>>
 
     @FormUrlEncoded
     @POST("/home/detail")

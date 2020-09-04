@@ -1,9 +1,7 @@
 package com.winwang.mvvm.base.viewmodel
 
 import android.os.NetworkOnMainThreadException
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.google.gson.JsonParseException
 import com.winwang.mvvm.enums.ViewStatusEnum
 import com.winwang.mvvm.R
@@ -14,9 +12,10 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 
 
-typealias Block<T> = suspend () -> T
+typealias Block<T> = suspend () -> T     //可以在别名类指定类型，例如suspend CoroutineScope.() -> Unit -----但是此时的block不需要调用invoke 了，直接block（）
 typealias Error = suspend (e: Exception) -> Unit
 typealias Cancel = suspend (e: Exception) -> Unit
+typealias EmitBlock<T> = suspend LiveDataScope<T>.() -> T
 
 /**
  *Created by WinWang on 2020/6/8
@@ -89,6 +88,21 @@ open class BaseViewModel : ViewModel() {
     }
 
     /**
+     * 省去每次创建liveData的烦恼，利用liveData的包装创建，直接传入block发送道对应的页面
+     */
+    fun <T> emit(cancel: Cancel? = null, block: EmitBlock<T>): LiveData<T> = liveData {
+        try {
+            emit(block())
+        } catch (e: Exception) {
+            when (e) {
+                is CancellationException -> cancel?.invoke(e)
+                else -> onError(e)
+            }
+        }
+    }
+
+
+    /**
      * 统一处理错误
      * @param e 异常
      */
@@ -97,24 +111,28 @@ open class BaseViewModel : ViewModel() {
             is ConnectException -> {
                 // 连接失败
                 App.instance.showToast(
-                    App.instance.getString(R.string.network_connection_failed))
+                    App.instance.getString(R.string.network_connection_failed)
+                )
                 viewStatus.value = ViewStatusEnum.NETWORKERROR
             }
             is SocketTimeoutException -> {
                 // 请求超时
                 App.instance.showToast(
-                    App.instance.getString(R.string.network_request_timeout))
+                    App.instance.getString(R.string.network_request_timeout)
+                )
                 viewStatus.value = ViewStatusEnum.NETWORKERROR
             }
             is JsonParseException -> {
                 // 数据解析错误
                 App.instance.showToast(
-                    App.instance.getString(R.string.api_data_parse_error))
+                    App.instance.getString(R.string.api_data_parse_error)
+                )
                 viewStatus.value = ViewStatusEnum.ERROR
             }
             is NetworkOnMainThreadException -> {
                 App.instance.showToast(
-                    App.instance.getString(R.string.network_thread_exception))
+                    App.instance.getString(R.string.network_thread_exception)
+                )
                 viewStatus.value = ViewStatusEnum.ERROR
             }
             else -> {

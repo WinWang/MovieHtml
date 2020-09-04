@@ -23,6 +23,9 @@
 
         </LinearLayout>
 
+        <include layout="@layout/hot_test_view_layout"/>
+
+
     </RelativeLayout>
 
 

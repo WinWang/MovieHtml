@@ -19,10 +19,35 @@ class HotFragment : BaseVmDIFragment() {
 
     override fun getLayoutId(): Int = R.layout.fragment_hot_layout
 
+    override fun useLoadSir() = true
+
     override fun initView() {
         super.initView()
         mTopBar?.setTitle(hotViewModel.test())
         hot_view.init()
     }
+
+    override fun initData() {
+        super.initData()
+
+    }
+
+    override fun lazyLoadData() {
+        super.lazyLoadData()
+        loadNet()
+    }
+
+    override fun loadNet() {
+        super.loadNet()
+        hot_view.getMovieList()
+        hotViewModel.getTestData()
+        showSuccess()
+    }
+
+    override fun initObserve() {
+        super.initObserve()
+
+    }
+
 
 }

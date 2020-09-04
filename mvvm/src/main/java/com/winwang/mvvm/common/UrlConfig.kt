@@ -6,12 +6,14 @@ package com.winwang.mvvm.common
  */
 
 
-object Constant {
+object UrlConfig {
 
     /**
      * 基本域名-电影网站
      */
     const val BASE_MOVIE_URL: String = "http://www.27k.cc"
+
+    const val BASE_HOST = "http://192.168.204.202:8080";
 
     /**
      * 直播数据抓取地址

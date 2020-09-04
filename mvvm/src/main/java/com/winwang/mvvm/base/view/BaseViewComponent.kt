@@ -38,8 +38,6 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
         lifecycleOwner = this.findViewTreeLifecycleOwner()!!
         viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
         lifecycleOwner.lifecycle.addObserver(this)
-//        lifecycleOwner = getLifeOwner()!!
-//        viewModelStoreOwner = getViewModelOwner()!!
         initView()
         initViewModel()
         initObserve()
@@ -48,24 +46,16 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
 
 
     fun getLifeOwner(): LifecycleOwner? {
-        if (mContext != null) {
-            if (mContext is LifecycleOwner) {
-                return mContext as LifecycleOwner
-            } else {
-                return null
-            }
+        if (mContext is LifecycleOwner) {
+            return mContext as LifecycleOwner
         } else {
             return null
         }
     }
 
     fun getViewModelOwner(): ViewModelStoreOwner? {
-        if (mContext != null) {
-            if (mContext is LifecycleOwner) {
-                return mContext as ViewModelStoreOwner
-            } else {
-                return null
-            }
+        if (mContext is LifecycleOwner) {
+            return mContext as ViewModelStoreOwner
         } else {
             return null
         }

@@ -22,7 +22,7 @@ class VideoDetailViewModel : BaseViewModel() {
             var response = RetrofitClient.getRetrofitByUrl(Constant.BASE_HOST)
                 .create(ApiService::class.java).movieDetail(path)
             if (response.code == 200) {
-                playUrlEvent.value = response.apiData().playUrl
+                playUrlEvent.value = response.resultData().playUrl
             }
         })
     }
