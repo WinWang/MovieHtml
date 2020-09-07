@@ -140,18 +140,22 @@ abstract class BaseFragment : Fragment() {
 
     fun showError() {
         mLoadService?.showCallback(ErrorCallback::class.java)
+        hideRefresh()
     }
 
     fun showSuccess() {
         mLoadService?.showSuccess()
+        hideRefresh()
     }
 
     fun showEmpty() {
         mLoadService?.showCallback(EmptyCallback::class.java)
+        hideRefresh()
     }
 
     fun showTimeOut() {
         mLoadService?.showCallback(TimeoutCallback::class.java)
+        hideRefresh()
     }
 
     fun showLoading() {

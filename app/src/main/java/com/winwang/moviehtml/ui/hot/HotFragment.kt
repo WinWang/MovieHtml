@@ -1,5 +1,6 @@
 package com.winwang.moviehtml.ui.hot
 
+import androidx.lifecycle.Observer
 import com.winwang.moviehtml.R
 import com.winwang.mvvm.base.fragment.BaseVmDIFragment
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
@@ -34,19 +35,24 @@ class HotFragment : BaseVmDIFragment() {
 
     override fun lazyLoadData() {
         super.lazyLoadData()
-        loadNet()
+//        loadNet()
     }
 
     override fun loadNet() {
         super.loadNet()
-        hot_view.getMovieList()
-        hotViewModel.getTestData()
-        showSuccess()
+//        hot_view.getMovieList()
+//        hotViewModel.getTestData()
+//        showSuccess()
+//        hotViewModel.getTestData()
+//        initObserve()
     }
 
     override fun initObserve() {
         super.initObserve()
-
+        hotViewModel.getMovieDataByFlow.observe(this, Observer {
+            showSuccess()
+            tv_test_hot.text = it.toString()
+        })
     }
 
 

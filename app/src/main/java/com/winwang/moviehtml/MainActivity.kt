@@ -62,8 +62,11 @@ class MainActivity : BaseActivity() {
             offscreenPageLimit = 4
         }
 
-        hot_view.init()
-        TestDialog().show(supportFragmentManager,"home")
+        /**
+         * 测试自定义view+viewmodel 和Dialog的工作流程
+         */
+//        hot_view.init()
+//        TestDialog().show(supportFragmentManager,"home")
 //        hot_view.getMovieList()
 
     }

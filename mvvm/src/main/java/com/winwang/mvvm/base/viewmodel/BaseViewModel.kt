@@ -88,15 +88,26 @@ open class BaseViewModel : ViewModel() {
     }
 
     /**
-     * 省去每次创建liveData的烦恼，利用liveData的包装创建，直接传入block发送道对应的页面
+     * 省去每次创建liveData的烦恼，利用liveData的包装创建，直接传入block发送道对应的页面（此时用livedata的协程作用域，不需要用viewmodeScope，用的是liveDataScope）
      */
-    fun <T> emit(cancel: Cancel? = null, block: EmitBlock<T>): LiveData<T> = liveData {
+    fun <T> emit(
+        error: Error? = null,
+        cancel: Cancel? = null,
+        handleError: Boolean = true,
+        block: EmitBlock<T>
+    ): LiveData<T> = liveData {
         try {
             emit(block())
+            viewStatus.value = ViewStatusEnum.SUCCESS
         } catch (e: Exception) {
             when (e) {
                 is CancellationException -> cancel?.invoke(e)
-                else -> onError(e)
+                else -> {
+                    if (handleError) {
+                        onError(e)
+                    }
+                    error?.invoke(e)
+                }
             }
         }
     }

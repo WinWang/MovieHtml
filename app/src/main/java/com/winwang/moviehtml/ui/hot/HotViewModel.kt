@@ -1,6 +1,9 @@
 package com.winwang.moviehtml.ui.hot
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.liveData
+import com.winwang.moviehtml.bean.MovieBean
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 
 /**
@@ -11,12 +14,26 @@ import com.winwang.mvvm.base.viewmodel.BaseViewModel
 class HotViewModel(private val homeRepository: HomeRepository) : BaseViewModel() {
 
 
+    var movieLiveData = liveData {
+        val homeMovie = homeRepository.getTestData()
+        emit(homeMovie)
+    }
+
+
     fun getTestData() {
         launch(block = {
-            val asLiveData = homeRepository.getTestData()
-                .asLiveData()
+            val asLiveData = homeRepository.getTestData().resultData()
         })
     }
+
+
+    fun getMovieData(): LiveData<MutableList<MovieBean>> = emit {
+        homeRepository.getTestData().resultData()
+    }
+
+    val getMovieDataByFlow: LiveData<MutableList<MovieBean>> =
+        homeRepository.getTestLiveData().asLiveData()
+
 
     fun test() = "10"
 
