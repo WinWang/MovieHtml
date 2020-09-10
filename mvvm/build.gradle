@@ -58,5 +58,7 @@ dependencies {
     api rootProject.ext.dependencies["utilcode"]
     api rootProject.ext.dependencies["autosize"]
     api rootProject.ext.dependencies["multidex"]
+    api rootProject.ext.dependencies["EventBus"]
+    debugApi rootProject.ext.dependencies["leak-canary"]
 
 }

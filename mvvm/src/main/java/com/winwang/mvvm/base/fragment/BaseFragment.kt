@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewTreeLifecycleOwner
-import androidx.lifecycle.ViewTreeViewModelStoreOwner
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
@@ -21,6 +19,7 @@ import com.winwang.mvvm.loadsir.ErrorCallback
 import com.winwang.mvvm.loadsir.LoadingCallback
 import com.winwang.mvvm.loadsir.TimeoutCallback
 import com.winwang.mvvm.widget.LoadingDialog
+import org.greenrobot.eventbus.EventBus
 
 /**
  *Created by WinWang on 2020/6/8
@@ -36,6 +35,15 @@ abstract class BaseFragment : Fragment() {
     private var lazyLoaded = false
 
     lateinit var mRootView: View
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (useEventBus()) {
+            EventBus.getDefault().register(this)
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -89,9 +97,10 @@ abstract class BaseFragment : Fragment() {
     /**
      * 是否展示返回按钮
      */
-    open fun isShowBack(): Boolean {
-        return false
-    }
+    open fun isShowBack(): Boolean = false
+
+
+    protected open fun useEventBus(): Boolean = false
 
     abstract fun getLayoutId(): Int
 
@@ -103,14 +112,10 @@ abstract class BaseFragment : Fragment() {
     }
 
     //自己设置loadSir布局
-    protected open fun loadSirSelf(): Boolean {
-        return false
-    }
+    protected open fun loadSirSelf(): Boolean = false
 
     //使用loadSir
-    protected open fun useLoadSir(): Boolean {
-        return false
-    }
+    protected open fun useLoadSir(): Boolean = false
 
     open fun loadNet() {
 
@@ -135,6 +140,13 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        initViewComponent()
+    }
+
+    override fun onDestroy() {
+        if (useEventBus()) {
+            EventBus.getDefault().unregister(this)
+        }
+        super.onDestroy()
     }
 
 

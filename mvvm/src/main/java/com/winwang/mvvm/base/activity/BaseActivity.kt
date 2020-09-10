@@ -24,6 +24,7 @@ import com.winwang.mvvm.loadsir.LoadingCallback
 import com.winwang.mvvm.loadsir.TimeoutCallback
 import com.winwang.mvvm.widget.LoadingDialog
 import me.jessyan.autosize.AutoSize
+import org.greenrobot.eventbus.EventBus
 
 /**
  *Created by WinWang on 2020/6/8
@@ -47,12 +48,18 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initViewTreeOwners()
         setContentView(getLayoutId())
+        if (useEventBus()) {
+            EventBus.getDefault().register(this)
+        }
         mContext = this
         initTopBar()
         initLoadSir()
         initViewData()
     }
 
+    /**
+     * 为了给自定义的ViewComponent内部使用，能正常使用lifecycleOwner和viewModelScope----liveData+ViewModel的模式开发
+     */
     fun initViewTreeOwners() {
         // Set the view tree owners before setting the content view so that the inflation process
         // and attach listeners will see them already present
@@ -87,9 +94,9 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 是否展示返回按钮
      */
-    open fun isShowBack(): Boolean {
-        return true
-    }
+    open fun isShowBack(): Boolean = true
+
+    protected open fun useEventBus(): Boolean = false
 
 
     open fun initViewData() {
@@ -170,6 +177,13 @@ abstract class BaseActivity : AppCompatActivity() {
         if (this::loadingDialog.isInitialized && loadingDialog.isVisible) {
             loadingDialog?.dismiss()
         }
+    }
+
+    override fun onDestroy() {
+        if (useEventBus()) {
+            EventBus.getDefault().unregister(this)
+        }
+        super.onDestroy()
     }
 
 

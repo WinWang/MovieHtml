@@ -15,15 +15,16 @@ class HotViewModel(private val homeRepository: HomeRepository) : BaseViewModel()
 
 
     var movieLiveData = liveData {
-        val homeMovie = homeRepository.getTestData()
+        val homeMovie =   homeRepository.getTestData()
         emit(homeMovie)
     }
 
 
     fun getTestData() {
-        launch(block = {
+        launch {
             val asLiveData = homeRepository.getTestData().resultData()
-        })
+
+        }
     }
 
 

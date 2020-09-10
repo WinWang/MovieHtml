@@ -38,10 +38,10 @@ open class BaseViewModel : ViewModel() {
      * @return Job
      */
     protected fun launch(
-        block: Block<Unit>,
         error: Error? = null,
         cancel: Cancel? = null,
-        handleError: Boolean = true
+        handleError: Boolean = true,
+        block: Block<Unit>
     ): Job {
         return viewModelScope.launch {
             try {

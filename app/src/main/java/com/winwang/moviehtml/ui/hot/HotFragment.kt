@@ -20,7 +20,7 @@ class HotFragment : BaseVmDIFragment() {
 
     override fun getLayoutId(): Int = R.layout.fragment_hot_layout
 
-    override fun useLoadSir() = true
+    override fun useLoadSir() = false
 
     override fun initView() {
         super.initView()
@@ -35,6 +35,7 @@ class HotFragment : BaseVmDIFragment() {
 
     override fun lazyLoadData() {
         super.lazyLoadData()
+        hot_view.getMovieList()
 //        loadNet()
     }
 
@@ -49,7 +50,7 @@ class HotFragment : BaseVmDIFragment() {
 
     override fun initObserve() {
         super.initObserve()
-        hotViewModel.getMovieDataByFlow.observe(this, Observer {
+        hotViewModel.getMovieData().observe(this, Observer {
             showSuccess()
             tv_test_hot.text = it.toString()
         })

@@ -26,10 +26,8 @@ class HotViewViewModel : BaseViewModel() {
         launch(
             block = {
                 var response = RetrofitClient.getRetrofitByUrl(Constant.BASE_HOST)
-                    .create(ApiService::class.java).movieHome()
-                if (response.code == 200) {
-                    movieListLiveData.value = response.resultData()
-                }
+                    .create(ApiService::class.java).movieHome().resultData()
+                movieListLiveData.value = response
             },
             error = {
                 LogUtils.e(it.toString())

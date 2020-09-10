@@ -9,6 +9,7 @@ import androidx.lifecycle.*
 import com.blankj.utilcode.util.LogUtils
 import com.winwang.mvvm.base.lifecycle.LifeObserver
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
+import org.greenrobot.eventbus.EventBus
 
 /**
  *Created by WinWang on 2020/8/25
@@ -38,10 +39,8 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
         lifecycleOwner = this.findViewTreeLifecycleOwner()!!
         viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
         lifecycleOwner.lifecycle.addObserver(this)
-        initView()
-        initViewModel()
-        initObserve()
-        initData()
+        LogUtils.d("viewInit>>>>>>>>>>")
+
     }
 
 
@@ -64,10 +63,20 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
 
     override fun onDestroy(owner: LifecycleOwner) {
         owner.lifecycle.removeObserver(this)
+        if (useEventBus()) {
+            EventBus.getDefault().unregister(this)
+        }
     }
 
     override fun onCreate(owner: LifecycleOwner) {
         LogUtils.d("onCreate>>>>>>>>>>")
+        if (useEventBus()) {
+            EventBus.getDefault().register(this)
+        }
+        initView()
+        initViewModel()
+        initObserve()
+        initData()
     }
 
     override fun onPause(owner: LifecycleOwner) {
@@ -78,6 +87,7 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
         LogUtils.d("onResume>>>>>>>>>>")
     }
 
+    protected open fun useEventBus(): Boolean = false
 
     /**
      * 初始化观察者

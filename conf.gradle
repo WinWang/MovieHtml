@@ -68,8 +68,7 @@ ext {
             "okhttp3-logging-interceptor": "com.squareup.okhttp3:logging-interceptor:${android["VOkhttp"]}",
             "okhttp3"                    : "com.squareup.okhttp3:okhttp:${android["VOkhttp"]}",
 
-            "canary-debug"               : "com.squareup.leakcanary:leakcanary-android:1.4-beta2",
-            "canary-release"             : "com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2",
+            "leak-canary"                : "com.squareup.leakcanary:leakcanary-android:2.4",
 
             "aop"                        : "org.aspectj:aspectjrt:1.8.13",
             "QMUI"                       : "com.qmuiteam:qmui:2.0.0-alpha10",
