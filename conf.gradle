@@ -61,6 +61,7 @@ ext {
 
             "glide"                      : "com.github.bumptech.glide:glide:4.11.0",
             "glide-compiler"             : "com.github.bumptech.glide:compiler:4.11.0",
+            "glide-transformation"       : "jp.wasabeef:glide-transformations:4.0.0",
 
             "retrofit"                   : "com.squareup.retrofit2:retrofit:${android["VRetrofitSdk"]}",
             "retrofit-converter-gson"    : "com.squareup.retrofit2:converter-gson:${android["VRetrofitSdk"]}",

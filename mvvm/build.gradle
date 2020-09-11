@@ -59,6 +59,9 @@ dependencies {
     api rootProject.ext.dependencies["autosize"]
     api rootProject.ext.dependencies["multidex"]
     api rootProject.ext.dependencies["EventBus"]
+    api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["glide-transformation"]
+    annotationProcessor(rootProject.ext.dependencies["glide"])
     debugApi rootProject.ext.dependencies["leak-canary"]
 
 }

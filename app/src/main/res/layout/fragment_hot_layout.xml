@@ -6,12 +6,19 @@
 
     <include layout="@layout/head_top_bar_layout" />
 
-    <include layout="@layout/hot_test_view_layout" />
-    
-    <TextView
+    <Button
+        android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="300pt"
-        android:id="@+id/tv_test_hot"/>
+        android:layout_height="wrap_content"
+        android:text="hahahah" />
+
+
+    <include layout="@layout/hot_test_view_layout" />
+
+    <TextView
+        android:id="@+id/tv_test_hot"
+        android:layout_width="match_parent"
+        android:layout_height="300pt" />
 
 
 </LinearLayout>

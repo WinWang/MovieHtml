@@ -1,11 +1,14 @@
 package com.winwang.moviehtml.ui.hot
 
+import android.view.View
 import androidx.lifecycle.Observer
+import com.qmuiteam.qmui.kotlin.onClick
 import com.winwang.moviehtml.R
 import com.winwang.mvvm.base.fragment.BaseVmDIFragment
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_hot_layout.*
 import kotlinx.android.synthetic.main.hot_test_view_layout.*
+import org.greenrobot.eventbus.EventBus
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -26,6 +29,9 @@ class HotFragment : BaseVmDIFragment() {
         super.initView()
         mTopBar?.setTitle(hotViewModel.test())
         hot_view.init()
+        button.onClick {
+            sendEvent()
+        }
     }
 
     override fun initData() {
@@ -54,6 +60,10 @@ class HotFragment : BaseVmDIFragment() {
             showSuccess()
             tv_test_hot.text = it.toString()
         })
+    }
+
+    fun sendEvent() {
+        EventBus.getDefault().post("这是我发送的数据")
     }
 
 

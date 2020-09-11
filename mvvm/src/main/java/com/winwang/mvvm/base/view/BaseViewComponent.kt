@@ -7,8 +7,11 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.lifecycle.*
 import com.blankj.utilcode.util.LogUtils
+import com.winwang.mvvm.R
+import com.winwang.mvvm.base.App
 import com.winwang.mvvm.base.lifecycle.LifeObserver
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
+import com.winwang.mvvm.ext.showToast
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -114,6 +117,12 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
     }
 
     abstract fun viewModelClass(): Class<VM>
+
+    open fun showToast(toastMessage: String) {
+        App.instance.showToast(
+            toastMessage
+        )
+    }
 
 
 }
