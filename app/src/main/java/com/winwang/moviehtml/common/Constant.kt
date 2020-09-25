@@ -14,7 +14,8 @@ object Constant {
     const val BASE_MOVIE_URL: String = "http://www.27k.cc"
 
     //请求网站基本域名
-    const val BASE_HOST: String = "http://192.168.204.202:8080"
+//    const val BASE_HOST: String = "http://192.168.204.202:8080"
+    const val BASE_HOST: String = "http://192.168.1.112:8080"
 
     /**
      * 直播数据抓取地址

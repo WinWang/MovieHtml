@@ -1,5 +1,7 @@
 package com.winwang.moviehtml
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.winwang.moviehtml.ui.home.HomeFragment
@@ -70,5 +72,14 @@ class MainActivity : BaseActivity() {
 //        hot_view.getMovieList()
 
     }
+
+    /**
+     * 修复Android Q版本的官方内存泄漏，必须在根Activity调用finishAfterTransition()-不能直接调用super
+     */
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onBackPressed() {
+        this.finishAfterTransition()
+    }
+
 
 }
