@@ -27,7 +27,7 @@ class HotFragment : BaseVmDIFragment() {
     override fun initView() {
         super.initView()
         mTopBar?.setTitle(hotViewModel.test())
-        hot_view.init()
+//        hot_view.init()
         hot_di_view.init()
         button.onClick {
             sendEvent()
@@ -42,7 +42,7 @@ class HotFragment : BaseVmDIFragment() {
     override fun lazyLoadData() {
         super.lazyLoadData()
 //        hot_view.getMovieList()
-        hot_di_view.initOB()
+        hot_di_view.initObserve()
 //        loadNet()
     }
 
@@ -59,7 +59,7 @@ class HotFragment : BaseVmDIFragment() {
         super.initObserve()
         hotViewModel.getMovieData().observe(this, Observer {
             showSuccess()
-            tv_test_hot.text = it.toString()
+            tv_di_hot_title.text = it.toString()
         })
     }
 

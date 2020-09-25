@@ -28,6 +28,13 @@ abstract class BaseDIViewComponent @JvmOverloads constructor(
         attrs
     ), LifeObserver, KoinComponent {
 
+    init {
+        if (getLayoutId() > -1) {
+            inflate(context, getLayoutId(), this)
+        }
+    }
+
+
     protected lateinit var lifecycleOwner: LifecycleOwner
     private lateinit var viewModelStoreOwner: ViewModelStoreOwner
     open var mContext: Context = context
@@ -75,7 +82,6 @@ abstract class BaseDIViewComponent @JvmOverloads constructor(
             EventBus.getDefault().register(this)
         }
         initView()
-        initViewModel()
         initObserve()
         initData()
     }
@@ -110,8 +116,7 @@ abstract class BaseDIViewComponent @JvmOverloads constructor(
     open fun initData() {
     }
 
-    abstract fun initViewModel(): BaseViewModel
-
+    open fun getLayoutId(): Int = -1
 
     open fun showToast(toastMessage: String) {
         App.instance.showToast(
