@@ -13,7 +13,15 @@
         android:text="hahahah" />
 
 
-    <include layout="@layout/hot_test_view_layout" />
+<!--    <include layout="@layout/hot_test_view_layout" />-->
+
+<!--    <include layout="@layout/hot_di_test_view_layout" />-->
+    <com.winwang.moviehtml.widget.HotDIViewTest
+        android:id="@+id/hot_di_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
 
     <TextView
         android:id="@+id/tv_test_hot"
