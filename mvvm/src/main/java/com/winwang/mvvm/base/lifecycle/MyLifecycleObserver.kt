@@ -11,7 +11,7 @@ import androidx.lifecycle.OnLifecycleEvent
  */
 
 
-open interface LifeObserver : LifecycleObserver {
+interface MyLifecycleObserver : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(source: LifecycleOwner)
@@ -25,9 +25,9 @@ open interface LifeObserver : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(source: LifecycleOwner)
 
-//    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-//    fun onLifeChange(source: LifecycleOwner, event: Lifecycle.Event) {
-//
-//    }
+    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+    fun onLifeChange(source: LifecycleOwner, event: Lifecycle.Event) {
+
+    }
 
 }

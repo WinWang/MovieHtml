@@ -2,6 +2,7 @@ package com.winwang.mvvm.base.dialog
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
@@ -13,13 +14,14 @@ import com.winwang.mvvm.enums.ViewStatusEnum
  */
 abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
 
-    protected val mViewModel: VM by lazy {
+    protected val mViewModel: VM by viewModels {
         ViewModelProvider(this).get(viewModelClass())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        lifecycle.addObserver(mViewModel)
         initViewModel()
         initObserve()
         if (savedInstanceState == null) {
@@ -66,10 +68,15 @@ abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
 
 
     private fun initViewModel() {
+        //通过lazy初始化
 //        mViewModel = ViewModelProvider(this).get(viewModelClass())
     }
 
     abstract fun viewModelClass(): Class<VM>
 
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(mViewModel)
+    }
 
 }
