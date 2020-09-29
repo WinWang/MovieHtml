@@ -17,6 +17,7 @@ import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.widget.QMUITopBar
 import com.winwang.mvvm.R
+import com.winwang.mvvm.base.IView
 import com.winwang.mvvm.base.view.BaseViewComponent
 import com.winwang.mvvm.loadsir.EmptyCallback
 import com.winwang.mvvm.loadsir.ErrorCallback
@@ -30,7 +31,7 @@ import org.greenrobot.eventbus.EventBus
  *Created by WinWang on 2020/6/8
  *Description->
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), IView {
 
     abstract fun getLayoutId(): Int
     private var mLoadService: LoadService<Any>? = null
@@ -143,22 +144,27 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showError() {
+        hideRefresh()
         mLoadService?.showCallback(ErrorCallback::class.java)
     }
 
     fun showSuccess() {
+        hideRefresh()
         mLoadService?.showSuccess()
     }
 
     fun showEmpty() {
+        hideRefresh()
         mLoadService?.showCallback(EmptyCallback::class.java)
     }
 
     fun showLoading() {
+        hideRefresh()
         mLoadService?.showCallback(LoadingCallback::class.java)
     }
 
     fun showTimeOut() {
+        hideRefresh()
         mLoadService?.showCallback(TimeoutCallback::class.java)
     }
 
@@ -184,6 +190,10 @@ abstract class BaseActivity : AppCompatActivity() {
             EventBus.getDefault().unregister(this)
         }
         super.onDestroy()
+    }
+
+    override fun hideRefresh() {
+        super.hideRefresh()
     }
 
 

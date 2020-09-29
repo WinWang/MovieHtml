@@ -13,6 +13,7 @@ import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.widget.QMUITopBar
 import com.winwang.mvvm.R
+import com.winwang.mvvm.base.IView
 import com.winwang.mvvm.base.view.BaseViewComponent
 import com.winwang.mvvm.loadsir.EmptyCallback
 import com.winwang.mvvm.loadsir.ErrorCallback
@@ -26,7 +27,7 @@ import org.greenrobot.eventbus.EventBus
  *Description->
  */
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment(),IView {
 
     private var mLoadService: LoadService<Any>? = null
     private lateinit var loadingDialog: LoadingDialog
@@ -191,7 +192,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    open fun hideRefresh() {
+    override fun hideRefresh() {
 
     }
 

@@ -1,5 +1,6 @@
 package com.winwang.moviehtml
 
+import com.blankj.utilcode.util.LogUtils
 import com.winwang.moviehtml.di.appModule
 import com.winwang.mvvm.base.App
 import org.koin.core.context.startKoin

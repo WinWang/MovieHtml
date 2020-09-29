@@ -3,7 +3,10 @@ package com.winwang.mvvm.base
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.blankj.utilcode.util.LogUtils
 import com.kingja.loadsir.core.LoadSir
+import com.tencent.mmkv.MMKV
+import com.winwang.mvvm.BuildConfig
 import com.winwang.mvvm.common.ActivityLifecycleCallbacksAdapter
 import com.winwang.mvvm.common.ActivityManager
 import com.winwang.mvvm.loadsir.*
@@ -36,6 +39,16 @@ open class App : Application() {
         registerAppLifecycler()
         initAutoSize()
         initLoadSir()
+        initMMKV()
+        initLog()
+    }
+
+    private fun initLog() {
+        LogUtils.getConfig().isLogSwitch = BuildConfig.DEBUG
+    }
+
+    private fun initMMKV() {
+        MMKV.initialize(this)
     }
 
     private fun initLoadSir() {
@@ -50,7 +63,9 @@ open class App : Application() {
     }
 
     private fun initAutoSize() {
-        AutoSizeConfig.getInstance().unitsManager
+        AutoSizeConfig.getInstance()
+            .setLog(false)
+            .unitsManager
             .setSupportDP(false)
             .setSupportSP(false).supportSubunits = Subunits.PT;
     }

@@ -3,7 +3,6 @@ package com.winwang.mvvm.base.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
 
@@ -12,6 +11,7 @@ import com.winwang.mvvm.enums.ViewStatusEnum
  *Description->
  */
 abstract class BaseVmDIFragment : BaseFragment() {
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,22 +31,18 @@ abstract class BaseVmDIFragment : BaseFragment() {
             when (it) {
                 ViewStatusEnum.SUCCESS -> {
                     showSuccess()
-                    hideRefresh()
                 }
 
                 ViewStatusEnum.ERROR -> {
                     showError()
-                    hideRefresh()
                 }
 
                 ViewStatusEnum.EMPTY -> {
                     showEmpty()
-                    hideRefresh()
                 }
 
                 ViewStatusEnum.NETWORKERROR -> {
                     showTimeOut()
-                    hideRefresh()
                 }
 
             }

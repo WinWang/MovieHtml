@@ -6,7 +6,6 @@ import com.winwang.moviehtml.R
 import com.winwang.mvvm.base.fragment.BaseVmDIFragment
 import kotlinx.android.synthetic.main.fragment_hot_layout.*
 import kotlinx.android.synthetic.main.hot_di_test_view_layout.*
-import kotlinx.android.synthetic.main.hot_test_view_layout.*
 import org.greenrobot.eventbus.EventBus
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

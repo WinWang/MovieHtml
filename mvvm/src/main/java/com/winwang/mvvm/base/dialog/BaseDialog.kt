@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.winwang.mvvm.R
+import com.winwang.mvvm.base.IView
 import com.winwang.mvvm.loadsir.EmptyCallback
 import com.winwang.mvvm.loadsir.ErrorCallback
 import com.winwang.mvvm.loadsir.LoadingCallback
@@ -18,7 +19,7 @@ import com.winwang.mvvm.loadsir.TimeoutCallback
  *Created by WinWang on 2020/6/16
  *Description->通用的Dialog
  */
-abstract class BaseDialog : DialogFragment() {
+abstract class BaseDialog : DialogFragment(), IView {
 
     var mLoadService: LoadService<Any>? = null
     open var mContext: FragmentActivity? = null
@@ -71,27 +72,37 @@ abstract class BaseDialog : DialogFragment() {
     }
 
     fun showError() {
+        hideRefresh()
         mLoadService?.showCallback(ErrorCallback::class.java)
     }
 
     fun showSuccess() {
+        hideRefresh()
         mLoadService?.showSuccess()
     }
 
     fun showEmpty() {
+        hideRefresh()
         mLoadService?.showCallback(EmptyCallback::class.java)
     }
 
     fun showTimeOut() {
+        hideRefresh()
         mLoadService?.showCallback(TimeoutCallback::class.java)
     }
 
     fun showLoading() {
+        hideRefresh()
         mLoadService?.showCallback(LoadingCallback::class.java)
     }
 
     fun showToast(toastMsg: String) {
 //        ToastUtils.showShort(toastMsg)
+    }
+
+    override fun hideRefresh() {
+        super.hideRefresh()
+
     }
 
 
