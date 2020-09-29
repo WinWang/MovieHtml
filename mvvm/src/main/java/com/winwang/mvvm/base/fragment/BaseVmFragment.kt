@@ -13,13 +13,16 @@ import com.winwang.mvvm.enums.ViewStatusEnum
  */
 abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
 
-    protected lateinit var mViewModel: VM
+    protected val mViewModel: VM by lazy {
+        ViewModelProvider(this).get(viewModelClass())
+    }
     private var lazyLoaded = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initViewModel()
+        lifecycle.addObserver(mViewModel)
         // 因为Fragment恢复后savedInstanceState不为null，
         // 重新恢复后会自动从ViewModel中的LiveData恢复数据，
         // 不需要重新初始化数据。
@@ -34,22 +37,18 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
             when (it) {
                 ViewStatusEnum.SUCCESS -> {
                     showSuccess()
-                    hideRefresh()
                 }
 
                 ViewStatusEnum.ERROR -> {
                     showError()
-                    hideRefresh()
                 }
 
                 ViewStatusEnum.EMPTY -> {
                     showEmpty()
-                    hideRefresh()
                 }
 
                 ViewStatusEnum.NETWORKERROR -> {
                     showTimeOut()
-                    hideRefresh()
                 }
 
             }
@@ -71,13 +70,19 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
     }
 
 
-
-
+    /**
+     * 通过by lazy来初始化，不在需要单独初始化
+     */
     private fun initViewModel() {
-        mViewModel = ViewModelProvider(this).get(viewModelClass())
+//        mViewModel = ViewModelProvider(this).get(viewModelClass())
     }
 
     abstract fun viewModelClass(): Class<VM>
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(mViewModel)
+    }
 
 
 }

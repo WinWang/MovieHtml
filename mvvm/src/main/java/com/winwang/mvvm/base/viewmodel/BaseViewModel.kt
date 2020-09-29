@@ -2,10 +2,12 @@ package com.winwang.mvvm.base.viewmodel
 
 import android.os.NetworkOnMainThreadException
 import androidx.lifecycle.*
+import com.blankj.utilcode.util.LogUtils
 import com.google.gson.JsonParseException
 import com.winwang.mvvm.enums.ViewStatusEnum
 import com.winwang.mvvm.R
 import com.winwang.mvvm.base.App
+import com.winwang.mvvm.base.lifecycle.LifeObserver
 import com.winwang.mvvm.ext.showToast
 import kotlinx.coroutines.*
 import java.net.ConnectException
@@ -21,7 +23,7 @@ typealias EmitBlock<T> = suspend LiveDataScope<T>.() -> T
  *Created by WinWang on 2020/6/8
  *Description->
  */
-open class BaseViewModel : ViewModel() {
+open class BaseViewModel : ViewModel() , LifeObserver {
 
     val loginStatusInvalid: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -152,6 +154,22 @@ open class BaseViewModel : ViewModel() {
                 viewStatus.value = ViewStatusEnum.ERROR
             }
         }
+    }
+
+    override fun onCreate(source: LifecycleOwner) {
+        LogUtils.dTag("ViewModel","onCreate>>>>")
+    }
+
+    override fun onPause(source: LifecycleOwner) {
+        LogUtils.dTag("ViewModel","onPause>>>>")
+    }
+
+    override fun onResume(source: LifecycleOwner) {
+        LogUtils.dTag("ViewModel","onResume>>>>")
+    }
+
+    override fun onDestroy(source: LifecycleOwner) {
+        LogUtils.dTag("ViewModel","onDestroy>>>>")
     }
 
 

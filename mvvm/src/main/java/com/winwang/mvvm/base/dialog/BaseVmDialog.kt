@@ -13,7 +13,9 @@ import com.winwang.mvvm.enums.ViewStatusEnum
  */
 abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
 
-    protected lateinit var mViewModel: VM
+    protected val mViewModel: VM by lazy {
+        ViewModelProvider(this).get(viewModelClass())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +66,7 @@ abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
 
 
     private fun initViewModel() {
-        mViewModel = ViewModelProvider(this).get(viewModelClass())
+//        mViewModel = ViewModelProvider(this).get(viewModelClass())
     }
 
     abstract fun viewModelClass(): Class<VM>

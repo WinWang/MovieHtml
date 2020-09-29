@@ -12,13 +12,16 @@ import com.winwang.mvvm.enums.ViewStatusEnum
  */
 abstract class BaseVmActivity<VM : BaseViewModel> : BaseActivity() {
 
-    protected open lateinit var mViewModel: VM
+    protected val mViewModel: VM by lazy {
+        ViewModelProvider(this).get(viewModelClass())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
         initViewModel()
         initObserve()
+        lifecycle.addObserver(mViewModel)
         // 因为Activity恢复后savedInstanceState不为null，
         // 重新恢复后会自动从ViewModel中的LiveData恢复数据，
         // 不需要重新初始化数据。
@@ -29,7 +32,7 @@ abstract class BaseVmActivity<VM : BaseViewModel> : BaseActivity() {
     }
 
     private fun initViewModel() {
-        mViewModel = ViewModelProvider(this).get(viewModelClass())
+//        mViewModel = ViewModelProvider(this).get(viewModelClass())
     }
 
     protected abstract fun viewModelClass(): Class<VM>
@@ -63,6 +66,11 @@ abstract class BaseVmActivity<VM : BaseViewModel> : BaseActivity() {
 
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(mViewModel)
     }
 
 }

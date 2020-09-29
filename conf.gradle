@@ -79,6 +79,7 @@ ext {
             "utilcode"                   : "com.blankj:utilcodex:1.28.4",
             "autosize"                   : "me.jessyan:autosize:1.2.1",
             "liveDataBus"                : "com.jeremyliao:live-event-bus-x:1.5.7",
+            "mmkv"                       : "com.tencent:mmkv-static:1.2.2",
 
     ]
 
