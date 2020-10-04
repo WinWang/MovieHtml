@@ -3,26 +3,31 @@ package com.winwang.mvvm.base.view
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import com.blankj.utilcode.util.LogUtils
 import com.winwang.mvvm.base.App
 import com.winwang.mvvm.base.lifecycle.MyLifecycleObserver
+import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.ext.showToast
 import org.greenrobot.eventbus.EventBus
-import org.koin.core.KoinComponent
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import kotlin.reflect.KClass
 
 /**
  *Created by WinWang on 2020/8/25
  *Description->
  */
-abstract class BaseDIViewComponent @JvmOverloads constructor(
+abstract class BaseDIViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) :
     FrameLayout(
         context,
         attrs
-    ), MyLifecycleObserver, KoinComponent {
+    ), MyLifecycleObserver {
 
     init {
         if (getLayoutId() > -1) {
@@ -30,24 +35,40 @@ abstract class BaseDIViewComponent @JvmOverloads constructor(
         }
     }
 
-
     protected lateinit var lifecycleOwner: LifecycleOwner
     private lateinit var viewModelStoreOwner: ViewModelStoreOwner
     open var mContext: Context = context
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
+    protected val mViewModel: VM by lazy {
+        val clazz =
+            this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
+        viewModelStoreOwner!!.getViewModel<VM>(clazz = clazz)
     }
 
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+//        init()
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+
+    }
+
+
     open fun init() {
+        //为了方便开发，放弃使用viewTree获取方式-主要是因为koin注入需要lifecycleOwner，通过viewTree获取的不能强转成componentCallback，暂时使用context强行转换
+        //升级koin，官方解决了这个bug，重新使用Android官方推荐方式使用
         lifecycleOwner = this.findViewTreeLifecycleOwner()!!
         viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
+//        lifecycleOwner = getLifeOwner()!!
+//        viewModelStoreOwner = getViewModelOwner()!!
         lifecycleOwner.lifecycle.addObserver(this)
         LogUtils.d("viewInit>>>>>>>>>>")
 
     }
 
-
+    @Deprecated(message = "通过ViewTreeLifecycleOwner实现")
     fun getLifeOwner(): LifecycleOwner? {
         if (mContext is LifecycleOwner) {
             return mContext as LifecycleOwner
@@ -56,6 +77,7 @@ abstract class BaseDIViewComponent @JvmOverloads constructor(
         }
     }
 
+    @Deprecated(message = "通过ViewTreeViewModelOwner实现")
     fun getViewModelOwner(): ViewModelStoreOwner? {
         if (mContext is LifecycleOwner) {
             return mContext as ViewModelStoreOwner
@@ -64,13 +86,6 @@ abstract class BaseDIViewComponent @JvmOverloads constructor(
         }
     }
 
-
-    override fun onDestroy(owner: LifecycleOwner) {
-        owner.lifecycle.removeObserver(this)
-        if (useEventBus()) {
-            EventBus.getDefault().unregister(this)
-        }
-    }
 
     override fun onCreate(owner: LifecycleOwner) {
         LogUtils.d("onCreate>>>>>>>>>>")
@@ -88,6 +103,13 @@ abstract class BaseDIViewComponent @JvmOverloads constructor(
 
     override fun onResume(owner: LifecycleOwner) {
         LogUtils.d("onResume>>>>>>>>>>")
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        if (useEventBus()) {
+            EventBus.getDefault().unregister(this)
+        }
+        lifecycleOwner.lifecycle.removeObserver(this)
     }
 
     protected open fun useEventBus(): Boolean = false

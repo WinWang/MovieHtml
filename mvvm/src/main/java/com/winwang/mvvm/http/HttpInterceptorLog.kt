@@ -26,10 +26,11 @@ class HttpInterceptorLog : HttpLoggingInterceptor.Logger {
         ) {
             messageTemp = HttpJsonUtil.formatJson(messageTemp)
         }
+
         mMessage.append(
             """
                 $messageTemp
-                
+
                 """.trimIndent()
         )
         // 请求或者响应结束，打印整条日志

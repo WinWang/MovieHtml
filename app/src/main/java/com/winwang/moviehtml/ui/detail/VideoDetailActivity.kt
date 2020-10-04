@@ -21,8 +21,6 @@ class VideoDetailActivity : BaseVmActivity<VideoDetailViewModel>() {
 
     var videoUrl: String = ""
 
-    override fun viewModelClass(): Class<VideoDetailViewModel> = VideoDetailViewModel::class.java
-
     override fun getLayoutId(): Int = R.layout.activity_video_detail_layout
 
     override fun initData() {

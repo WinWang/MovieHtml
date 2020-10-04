@@ -2,6 +2,7 @@ package com.winwang.mvvm.base.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.ContextThemeWrapper
 import android.widget.FrameLayout
 import androidx.lifecycle.*
 import com.blankj.utilcode.util.LogUtils
@@ -10,6 +11,7 @@ import com.winwang.mvvm.base.lifecycle.MyLifecycleObserver
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.ext.showToast
 import org.greenrobot.eventbus.EventBus
+import java.lang.reflect.ParameterizedType
 
 /**
  *Created by WinWang on 2020/8/25
@@ -24,37 +26,60 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
         attrs
     ), MyLifecycleObserver {
 
+    init {
+        if (getLayoutId() > -1) {
+            inflate(context, getLayoutId(), this)
+        }
+    }
+
+
     protected lateinit var lifecycleOwner: LifecycleOwner
     private lateinit var viewModelStoreOwner: ViewModelStoreOwner
     open var mContext: Context = context
 
-    protected lateinit var mViewModel: VM
+    protected val mViewModel: VM by lazy {
+        val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
+        ViewModelProvider(viewModelStoreOwner).get<VM>(types[0] as Class<VM>)
+    }
 
 
     override fun onFinishInflate() {
         super.onFinishInflate()
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+    }
+
+
     open fun init() {
         lifecycleOwner = this.findViewTreeLifecycleOwner()!!
         viewModelStoreOwner = this.findViewTreeViewModelStoreOwner()!!
+//        lifecycleOwner = getLifeOwner()!!
+//        viewModelStoreOwner = getViewModelOwner()!!
         lifecycleOwner.lifecycle.addObserver(this)
         LogUtils.d("viewInit>>>>>>>>>>")
 
     }
 
 
+    @Deprecated(message = "通过ViewTreeLifecycleOwner实现")
     fun getLifeOwner(): LifecycleOwner? {
         if (mContext is LifecycleOwner) {
             return mContext as LifecycleOwner
+        } else if (mContext is ContextThemeWrapper) {
+            return (mContext as ContextThemeWrapper).baseContext as LifecycleOwner
         } else {
             return null
         }
     }
 
+    @Deprecated(message = "通过ViewTreeViewModelOwner实现")
     fun getViewModelOwner(): ViewModelStoreOwner? {
         if (mContext is LifecycleOwner) {
             return mContext as ViewModelStoreOwner
+        } else if (mContext is ContextThemeWrapper) {
+            return (mContext as ContextThemeWrapper).baseContext as ViewModelStoreOwner
         } else {
             return null
         }
@@ -62,10 +87,10 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
 
 
     override fun onDestroy(owner: LifecycleOwner) {
-        owner.lifecycle.removeObserver(this)
         if (useEventBus()) {
             EventBus.getDefault().unregister(this)
         }
+        owner.lifecycle.removeObserver(this)
     }
 
     override fun onCreate(owner: LifecycleOwner) {
@@ -109,11 +134,13 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
     open fun initData() {
     }
 
+    open fun getLayoutId(): Int = -1
+
     private fun initViewModel() {
-        mViewModel = ViewModelProvider(viewModelStoreOwner).get(viewModelClass())
+//        mViewModel = ViewModelProvider(viewModelStoreOwner).get(viewModelClass())
     }
 
-    abstract fun viewModelClass(): Class<VM>
+//    abstract fun viewModelClass(): Class<VM>
 
     open fun showToast(toastMessage: String) {
         App.instance.showToast(

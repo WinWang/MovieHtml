@@ -25,9 +25,4 @@ interface MyLifecycleObserver : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(source: LifecycleOwner)
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-    fun onLifeChange(source: LifecycleOwner, event: Lifecycle.Event) {
-
-    }
-
 }

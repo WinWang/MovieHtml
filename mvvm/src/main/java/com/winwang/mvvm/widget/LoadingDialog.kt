@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.blankj.utilcode.util.LogUtils
 import com.winwang.mvvm.R
 import kotlinx.android.synthetic.main.fragment_progress_dialog.*
 
@@ -16,10 +17,6 @@ import kotlinx.android.synthetic.main.fragment_progress_dialog.*
 class LoadingDialog : DialogFragment() {
 
     private var messageResId: Int? = null
-
-    companion object {
-        fun newInstace() = LoadingDialog()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,14 +32,31 @@ class LoadingDialog : DialogFragment() {
         tvMessage.text = getString(messageResId ?: R.string.loading)
     }
 
+    /**
+     * 解决DialogFragment造成的内存泄露
+     */
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        dialog?.setOnShowListener(null)
+        dialog?.setOnCancelListener(null)
+        dialog?.setOnDismissListener(null)
+    }
+
+
     fun show(
         fragmentManager: FragmentManager,
-        messageResId: Int,
+        messageResId: Int? = null,
         isCancelable: Boolean = false
     ) {
         this.messageResId = messageResId
         this.isCancelable = isCancelable
         show(fragmentManager, "progressDialogFragment")
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        LogUtils.d("加载loading关闭")
     }
 
 

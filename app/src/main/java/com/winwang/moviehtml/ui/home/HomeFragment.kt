@@ -23,8 +23,6 @@ class HomeFragment : BaseVmFragment<HomeViewModel>(), SwipeRefreshLayout.OnRefre
 
     private var dataList = arrayListOf<MovieBean>()
 
-    override fun viewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
-
     override fun getLayoutId() = R.layout.fragment_home
 
     override fun useLoadSir() = true
@@ -32,6 +30,7 @@ class HomeFragment : BaseVmFragment<HomeViewModel>(), SwipeRefreshLayout.OnRefre
     override fun initView() {
         super.initView()
         mTopBar?.setTitle("首页")
+        showDialogLoading(null)
         refresh_home.setColorSchemeColors(resources.getColor(R.color.colorAccent))
         refresh_home.setOnRefreshListener(this)
         adapter = HomeAdapter(dataList).apply {
@@ -92,6 +91,7 @@ class HomeFragment : BaseVmFragment<HomeViewModel>(), SwipeRefreshLayout.OnRefre
         mViewModel.run {
             liveMovieList.observe(viewLifecycleOwner, Observer {
                 adapter.setNewInstance(it)
+                hideLoading()
             })
         }
 

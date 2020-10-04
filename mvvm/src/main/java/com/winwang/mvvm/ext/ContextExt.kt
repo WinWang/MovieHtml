@@ -7,10 +7,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 
 
-typealias Block<T> = suspend () -> T
-typealias Error = suspend (e: Exception) -> Unit
-typealias Cancel = suspend (e: Exception) -> Unit
-
 /**
  * 实现将特定文本复制到剪贴板的功能。
  * @param[label] User-visible label for the clip data.

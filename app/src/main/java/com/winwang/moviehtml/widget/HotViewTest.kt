@@ -18,7 +18,7 @@ class HotViewTest @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : BaseViewComponent<HotViewViewModel>(context, attrs) {
 
-    override fun viewModelClass() = HotViewViewModel::class.java
+//    override fun viewModelClass() = HotViewViewModel::class.java
 
     override fun useEventBus(): Boolean = true
 

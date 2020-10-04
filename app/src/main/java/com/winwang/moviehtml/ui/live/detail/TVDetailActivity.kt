@@ -21,8 +21,6 @@ class TVDetailActivity : BaseVmActivity<TVDetailViewModel>() {
     var tvUrl: String = ""
     var tvName: String = ""
 
-    override fun viewModelClass(): Class<TVDetailViewModel> = TVDetailViewModel::class.java
-
     override fun getLayoutId(): Int = R.layout.activity_tv_detail_layout
 
     override fun initData() {

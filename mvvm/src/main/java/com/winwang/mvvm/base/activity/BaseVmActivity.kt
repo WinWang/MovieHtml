@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
+import java.lang.reflect.ParameterizedType
 
 /**
  *Created by WinWang on 2020/6/8
@@ -13,15 +14,16 @@ import com.winwang.mvvm.enums.ViewStatusEnum
 abstract class BaseVmActivity<VM : BaseViewModel> : BaseActivity() {
 
     protected val mViewModel: VM by lazy {
-        ViewModelProvider(this).get(viewModelClass())
+        val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
+        ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycle.addObserver(mViewModel)
         initView()
         initViewModel()
         initObserve()
-        lifecycle.addObserver(mViewModel)
         // 因为Activity恢复后savedInstanceState不为null，
         // 重新恢复后会自动从ViewModel中的LiveData恢复数据，
         // 不需要重新初始化数据。
@@ -34,8 +36,6 @@ abstract class BaseVmActivity<VM : BaseViewModel> : BaseActivity() {
     private fun initViewModel() {
 //        mViewModel = ViewModelProvider(this).get(viewModelClass())
     }
-
-    protected abstract fun viewModelClass(): Class<VM>
 
     open fun initView() {
 

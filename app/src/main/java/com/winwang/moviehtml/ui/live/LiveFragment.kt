@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import com.winwang.moviehtml.R
 import com.winwang.moviehtml.adapter.LiveHomeAdapter
 import com.winwang.moviehtml.bean.LiveTypeBean
+import com.winwang.moviehtml.ui.home.TestDialog
 import com.winwang.moviehtml.utils.Router
 import com.winwang.mvvm.base.fragment.BaseVmFragment
 import kotlinx.android.synthetic.main.fragment_live_layout.*
@@ -17,8 +18,6 @@ class LiveFragment : BaseVmFragment<LiveViewModel>() {
     val datalist = arrayListOf<LiveTypeBean>()
 
     lateinit var adapter: LiveHomeAdapter
-
-    override fun viewModelClass(): Class<LiveViewModel> = LiveViewModel::class.java
 
     override fun getLayoutId(): Int = R.layout.fragment_live_layout
 
@@ -41,6 +40,8 @@ class LiveFragment : BaseVmFragment<LiveViewModel>() {
 
 
     override fun loadNet() {
+        showDialogLoading(null)
+        TestDialog().show(childFragmentManager,"home1")
         mViewModel.getLiveList()
     }
 
@@ -53,6 +54,7 @@ class LiveFragment : BaseVmFragment<LiveViewModel>() {
         mViewModel.run {
             liveTypeList.observe(viewLifecycleOwner, Observer {
                 adapter.setNewInstance(it)
+                hideLoading()
             })
         }
     }

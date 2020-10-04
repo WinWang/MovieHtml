@@ -32,9 +32,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api rootProject.ext.dependencies["appcompat"]
     api rootProject.ext.dependencies["core-ktx"]
+    api rootProject.ext.dependencies["ktx-reflect"]
     api rootProject.ext.dependencies["koin-scope"]
     api rootProject.ext.dependencies["koin-viewmodel"]
     api rootProject.ext.dependencies["koin-ext"]
+    api rootProject.ext.dependencies["koin-fragment"]
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["navi-fragment"]
     api rootProject.ext.dependencies["navi-ui"]
@@ -64,7 +66,7 @@ dependencies {
     api rootProject.ext.dependencies["EventBus"]
     api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["glide-transformation"]
-    annotationProcessor(rootProject.ext.dependencies["glide"])
+    kapt(rootProject.ext.dependencies["glide"])
     debugApi rootProject.ext.dependencies["leak-canary"]
 
     api rootProject.ext.dependencies["mmkv"]

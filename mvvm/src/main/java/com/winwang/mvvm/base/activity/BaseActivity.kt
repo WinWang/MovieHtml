@@ -172,9 +172,9 @@ abstract class BaseActivity : AppCompatActivity(), IView {
         ToastUtils.showShort(toastMsg)
     }
 
-    fun showDialogLoading(@StringRes loadingString: Int) {
-        if (this::loadingDialog.isInitialized) {
-            loadingDialog = LoadingDialog.newInstace()
+    fun showDialogLoading(@StringRes loadingString: Int?) {
+        if (!this::loadingDialog.isInitialized) {
+            loadingDialog = LoadingDialog()
         }
         this.loadingDialog.show(supportFragmentManager, loadingString, false)
     }

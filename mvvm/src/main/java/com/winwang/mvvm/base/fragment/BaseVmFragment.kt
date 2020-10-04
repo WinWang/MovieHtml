@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
+import java.lang.reflect.ParameterizedType
 
 /**
  *Created by WinWang on 2020/6/8
@@ -14,15 +15,20 @@ import com.winwang.mvvm.enums.ViewStatusEnum
 abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
 
     protected val mViewModel: VM by lazy {
-        ViewModelProvider(this).get(viewModelClass())
+        //自己初始化class实现
+        //ViewModelProvider(this).get(viewModelClass())
+
+        //反射获取class实现
+        val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
+        ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
     }
     private var lazyLoaded = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lifecycle.addObserver(mViewModel)
         initView()
         initViewModel()
-        lifecycle.addObserver(mViewModel)
         // 因为Fragment恢复后savedInstanceState不为null，
         // 重新恢复后会自动从ViewModel中的LiveData恢复数据，
         // 不需要重新初始化数据。
@@ -77,7 +83,6 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
 //        mViewModel = ViewModelProvider(this).get(viewModelClass())
     }
 
-    abstract fun viewModelClass(): Class<VM>
 
     override fun onDestroy() {
         super.onDestroy()

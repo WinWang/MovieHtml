@@ -179,9 +179,9 @@ abstract class BaseFragment : Fragment(),IView {
         ToastUtils.showShort(toastMsg)
     }
 
-    fun showDialogLoading(@StringRes loadingString: Int) {
-        if (this::loadingDialog.isInitialized) {
-            loadingDialog = LoadingDialog.newInstace()
+    fun showDialogLoading(@StringRes loadingString: Int?) {
+        if (!this::loadingDialog.isInitialized) {
+            loadingDialog = LoadingDialog()
         }
         this.loadingDialog.show(childFragmentManager, loadingString, false)
     }

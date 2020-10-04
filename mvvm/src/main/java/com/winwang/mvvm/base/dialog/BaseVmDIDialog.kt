@@ -7,17 +7,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import java.lang.reflect.ParameterizedType
+import kotlin.reflect.KClass
 
 /**
  *Created by WinWang on 2020/6/16
- *Description->Viewmodel请求的Dialog
+ *Description->Viewmodel请求的Dialog-koin注入版本，如果不用注入，使用普通BaseVmDialog版本
+ * @see BaseVmDialog
  */
-abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
+abstract class BaseVmDIDialog<VM : BaseViewModel> : BaseDialog() {
 
     protected val mViewModel: VM by lazy {
-        val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
-        ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
+        val clazz =
+            this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
+        getViewModel<VM>(clazz = clazz)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,7 +34,6 @@ abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
             initData()
         }
     }
-
 
     /**
      * 普通加载数据

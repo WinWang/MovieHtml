@@ -7,7 +7,6 @@ import com.winwang.moviehtml.R
 import com.winwang.moviehtml.ui.hot.HotViewModel
 import com.winwang.mvvm.base.view.BaseDIViewComponent
 import kotlinx.android.synthetic.main.hot_di_test_view_layout.view.*
-import org.koin.core.inject
 
 /**
  *Created by WinWang on 2020/9/17
@@ -16,16 +15,14 @@ import org.koin.core.inject
 class HotDIViewTest @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : BaseDIViewComponent(context, attrs) {
-
-    private val hotViewModel: HotViewModel by inject()
+) : BaseDIViewComponent<HotViewModel>(context, attrs) {
 
     override fun getLayoutId(): Int = R.layout.hot_di_test_view_layout
 
     override fun initObserve() {
         super.initObserve()
         lifecycleOwner?.run {
-            hotViewModel.getMovieData().observe(this, Observer {
+            mViewModel.getMovieData().observe(this, Observer {
                 tv_di_hot_title.text = it.toString()
                 println(it.toString() + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
             })

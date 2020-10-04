@@ -41,9 +41,4 @@
 <!--    <include layout="@layout/hot_test_view_layout"/>-->
 
 
-<!--    <com.winwang.mvvm.base.view.BaseViewComponent-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

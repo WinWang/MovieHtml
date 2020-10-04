@@ -7,17 +7,12 @@ import com.winwang.mvvm.base.fragment.BaseVmDIFragment
 import kotlinx.android.synthetic.main.fragment_hot_layout.*
 import kotlinx.android.synthetic.main.hot_di_test_view_layout.*
 import org.greenrobot.eventbus.EventBus
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  *Created by WinWang on 2020/8/4
  *Description->
  */
-class HotFragment : BaseVmDIFragment() {
-
-    private val hotViewModel: HotViewModel by viewModel()
-
-    override fun initViewModel(): HotViewModel = hotViewModel
+class HotFragment : BaseVmDIFragment<HotViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_hot_layout
 
@@ -25,7 +20,7 @@ class HotFragment : BaseVmDIFragment() {
 
     override fun initView() {
         super.initView()
-        mTopBar?.setTitle(hotViewModel.test())
+        mTopBar?.setTitle(mViewModel.test())
 //        hot_view.init()
         hot_di_view.init()
         button.onClick {
@@ -56,7 +51,7 @@ class HotFragment : BaseVmDIFragment() {
 
     override fun initObserve() {
         super.initObserve()
-        hotViewModel.getMovieData().observe(this, Observer {
+        mViewModel.getMovieData().observe(this, Observer {
             showSuccess()
             tv_di_hot_title.text = it.toString()
         })

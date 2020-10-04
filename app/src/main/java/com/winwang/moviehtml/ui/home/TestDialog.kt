@@ -10,8 +10,6 @@ import kotlinx.android.synthetic.main.hot_test_view_layout.*
  */
 class TestDialog : BaseVmDialog<HomeViewModel>() {
 
-    override fun viewModelClass() = HomeViewModel::class.java
-
     override fun getLayoutId() = R.layout.dialog_test_layout
 
     override fun useLoadSir(): Boolean = true
@@ -26,6 +24,10 @@ class TestDialog : BaseVmDialog<HomeViewModel>() {
         super.loadNet()
         mViewModel.getMovieList()
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 
 
