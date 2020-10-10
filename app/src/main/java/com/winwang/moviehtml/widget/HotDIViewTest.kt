@@ -21,10 +21,12 @@ class HotDIViewTest @JvmOverloads constructor(
 
     override fun initObserve() {
         super.initObserve()
+        showDialogLoading()
         lifecycleOwner?.run {
             mViewModel.getMovieData().observe(this, Observer {
                 tv_di_hot_title.text = it.toString()
                 println(it.toString() + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+                hideLoading()
             })
         }
 

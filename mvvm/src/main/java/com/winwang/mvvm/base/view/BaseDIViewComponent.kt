@@ -12,6 +12,7 @@ import com.winwang.mvvm.base.App
 import com.winwang.mvvm.base.lifecycle.MyLifecycleObserver
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.ext.showToast
+import com.winwang.mvvm.widget.LoadDialog
 import org.greenrobot.eventbus.EventBus
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import kotlin.reflect.KClass
@@ -28,6 +29,8 @@ abstract class BaseDIViewComponent<VM : BaseViewModel> @JvmOverloads constructor
         context,
         attrs
     ), MyLifecycleObserver {
+
+    private lateinit var loadingDialog: LoadDialog
 
     init {
         if (getLayoutId() > -1) {
@@ -140,6 +143,21 @@ abstract class BaseDIViewComponent<VM : BaseViewModel> @JvmOverloads constructor
         App.instance.showToast(
             toastMessage
         )
+    }
+
+    fun showDialogLoading(loadingString: String? = "") {
+        if (!this::loadingDialog.isInitialized) {
+            context?.run {
+                loadingDialog = LoadDialog(this)
+            }
+        }
+        this.loadingDialog.showLoading(loadingString)
+    }
+
+    fun hideLoading() {
+        if (this::loadingDialog.isInitialized) {
+            loadingDialog.hideLoading()
+        }
     }
 
 

@@ -40,8 +40,8 @@ class LiveFragment : BaseVmFragment<LiveViewModel>() {
 
 
     override fun loadNet() {
-        showDialogLoading(null)
-        TestDialog().show(childFragmentManager,"home1")
+        showDialogLoading()
+        TestDialog().show(childFragmentManager, "home1")
         mViewModel.getLiveList()
     }
 

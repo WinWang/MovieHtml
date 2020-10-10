@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.blankj.utilcode.util.BarUtils
@@ -19,7 +18,7 @@ import com.winwang.mvvm.loadsir.EmptyCallback
 import com.winwang.mvvm.loadsir.ErrorCallback
 import com.winwang.mvvm.loadsir.LoadingCallback
 import com.winwang.mvvm.loadsir.TimeoutCallback
-import com.winwang.mvvm.widget.LoadingDialog
+import com.winwang.mvvm.widget.LoadDialog
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -27,10 +26,10 @@ import org.greenrobot.eventbus.EventBus
  *Description->
  */
 
-abstract class BaseFragment : Fragment(),IView {
+abstract class BaseFragment : Fragment(), IView {
 
     private var mLoadService: LoadService<Any>? = null
-    private lateinit var loadingDialog: LoadingDialog
+    private lateinit var loadingDialog: LoadDialog
     open var mContext: FragmentActivity? = null
     open var mTopBar: QMUITopBar? = null
     private var lazyLoaded = false
@@ -179,16 +178,18 @@ abstract class BaseFragment : Fragment(),IView {
         ToastUtils.showShort(toastMsg)
     }
 
-    fun showDialogLoading(@StringRes loadingString: Int?) {
+    fun showDialogLoading(loadingString: String? = "") {
         if (!this::loadingDialog.isInitialized) {
-            loadingDialog = LoadingDialog()
+            context?.run {
+                loadingDialog = LoadDialog(this)
+            }
         }
-        this.loadingDialog.show(childFragmentManager, loadingString, false)
+        this.loadingDialog.showLoading(loadingString)
     }
 
     fun hideLoading() {
-        if (this::loadingDialog.isInitialized && loadingDialog.isVisible) {
-            loadingDialog?.dismiss()
+        if (this::loadingDialog.isInitialized) {
+            loadingDialog.hideLoading()
         }
     }
 

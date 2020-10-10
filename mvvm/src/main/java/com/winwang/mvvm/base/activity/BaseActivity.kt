@@ -23,6 +23,7 @@ import com.winwang.mvvm.loadsir.EmptyCallback
 import com.winwang.mvvm.loadsir.ErrorCallback
 import com.winwang.mvvm.loadsir.LoadingCallback
 import com.winwang.mvvm.loadsir.TimeoutCallback
+import com.winwang.mvvm.widget.LoadDialog
 import com.winwang.mvvm.widget.LoadingDialog
 import me.jessyan.autosize.AutoSize
 import org.greenrobot.eventbus.EventBus
@@ -35,7 +36,7 @@ abstract class BaseActivity : AppCompatActivity(), IView {
 
     abstract fun getLayoutId(): Int
     private var mLoadService: LoadService<Any>? = null
-    private lateinit var loadingDialog: LoadingDialog
+    private lateinit var loadingDialog: LoadDialog
     open var mTopBar: QMUITopBar? = null
     open var mContext: Activity? = null
 
@@ -172,16 +173,18 @@ abstract class BaseActivity : AppCompatActivity(), IView {
         ToastUtils.showShort(toastMsg)
     }
 
-    fun showDialogLoading(@StringRes loadingString: Int?) {
+    fun showDialogLoading(loadingString: String? = "") {
         if (!this::loadingDialog.isInitialized) {
-            loadingDialog = LoadingDialog()
+            mContext?.run {
+                loadingDialog = LoadDialog(this)
+            }
         }
-        this.loadingDialog.show(supportFragmentManager, loadingString, false)
+        this.loadingDialog.showLoading(loadingString)
     }
 
     fun hideLoading() {
-        if (this::loadingDialog.isInitialized && loadingDialog.isVisible) {
-            loadingDialog?.dismiss()
+        if (this::loadingDialog.isInitialized) {
+            loadingDialog.hideLoading()
         }
     }
 

@@ -30,7 +30,7 @@ class HomeFragment : BaseVmFragment<HomeViewModel>(), SwipeRefreshLayout.OnRefre
     override fun initView() {
         super.initView()
         mTopBar?.setTitle("首页")
-        showDialogLoading(null)
+        showDialogLoading()
         refresh_home.setColorSchemeColors(resources.getColor(R.color.colorAccent))
         refresh_home.setOnRefreshListener(this)
         adapter = HomeAdapter(dataList).apply {

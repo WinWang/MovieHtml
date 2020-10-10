@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_progress_dialog.*
 
 /**
  *Created by WinWang on 2020/6/8
- *Description->
+ *Description->为了在View中也能使用Dialog，暂时放弃DialogFragment，使用Dialog替代
  */
 class LoadingDialog : DialogFragment() {
 
