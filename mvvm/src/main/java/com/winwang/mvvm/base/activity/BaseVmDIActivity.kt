@@ -11,6 +11,7 @@ import kotlin.reflect.KClass
  *Created by WinWang on 2020/8/5
  *Description->这是依赖注入的类-》viewmodel通过依赖注入，如果不想依赖注入的话可以通过BaseVmActivity
  */
+@Deprecated(message = "不需要单独使用了，通过基类的isDIViewModel来控制注入方式，不使用多个基类")
 abstract class BaseVmDIActivity<VM : BaseViewModel> : BaseActivity() {
 
     val mViewModel: VM by lazy {

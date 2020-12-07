@@ -40,9 +40,15 @@ class LiveFragment : BaseVmFragment<LiveViewModel>() {
 
 
     override fun loadNet() {
-        showDialogLoading()
-        TestDialog().show(childFragmentManager, "home1")
+        testMethod()
         mViewModel.getLiveList()
+    }
+
+    private fun testMethod() {
+        /***测试loadingDialog***/
+        //        showDialogLoading()
+        /***测试普通的dialog里面带请求*******************/
+        //        TestDialog().show(childFragmentManager, "home1")
     }
 
     override fun lazyLoadData() {
@@ -50,11 +56,10 @@ class LiveFragment : BaseVmFragment<LiveViewModel>() {
     }
 
     override fun initObserve() {
-        super.initObserve()
         mViewModel.run {
             liveTypeList.observe(viewLifecycleOwner, Observer {
                 adapter.setNewInstance(it)
-                hideLoading()
+//                hideLoading()
             })
         }
     }

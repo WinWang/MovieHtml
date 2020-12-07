@@ -7,7 +7,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import java.lang.reflect.ParameterizedType
+import kotlin.reflect.KClass
 
 /**
  *Created by WinWang on 2020/6/16
@@ -16,8 +18,14 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
 
     protected val mViewModel: VM by lazy {
-        val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
-        ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
+        if (isDIViewModel()) {
+            val clazz =
+                this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
+            getViewModel<VM>(clazz = clazz)
+        } else {
+            val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
+            ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,7 +33,7 @@ abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
         lifecycle.addObserver(mViewModel)
         initView()
         initViewModel()
-        initObserve()
+        initStateObserve()
         if (savedInstanceState == null) {
             initData()
         }
@@ -46,7 +54,12 @@ abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
         // Override if need
     }
 
-    open fun initObserve() {
+    /**
+     * 是否采用依赖注入的方式注入ViewModel
+     */
+    open fun isDIViewModel(): Boolean = false
+
+    open fun initStateObserve() {
         mViewModel.viewStatus.observe(viewLifecycleOwner, Observer {
             when (it) {
                 ViewStatusEnum.SUCCESS -> {

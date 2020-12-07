@@ -16,6 +16,7 @@ import kotlin.reflect.KClass
  *Description->Viewmodel请求的Dialog-koin注入版本，如果不用注入，使用普通BaseVmDialog版本
  * @see BaseVmDialog
  */
+@Deprecated(message = "不需要单独使用了，通过基类的isDIViewModel来控制注入方式，不使用多个基类")
 abstract class BaseVmDIDialog<VM : BaseViewModel> : BaseDialog() {
 
     protected val mViewModel: VM by lazy {

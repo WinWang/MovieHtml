@@ -13,6 +13,7 @@ import kotlin.reflect.KClass
  *Created by WinWang on 2020/6/8
  *Description->
  */
+@Deprecated(message = "不需要单独使用了，通过基类的isDIViewModel来控制注入方式，不使用多个基类")
 abstract class BaseVmDIFragment<VM : BaseViewModel> : BaseFragment() {
 
     val mViewModel: VM by lazy {

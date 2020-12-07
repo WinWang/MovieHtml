@@ -6,7 +6,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import java.lang.reflect.ParameterizedType
+import kotlin.reflect.KClass
 
 /**
  *Created by WinWang on 2020/6/8
@@ -15,12 +17,14 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
 
     protected val mViewModel: VM by lazy {
-        //自己初始化class实现
-        //ViewModelProvider(this).get(viewModelClass())
-
-        //反射获取class实现
-        val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
-        ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
+        if (isDIViewModel()) {
+            val clazz =
+                this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
+            getViewModel<VM>(clazz = clazz)
+        } else {
+            val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
+            ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
+        }
     }
     private var lazyLoaded = false
 
@@ -32,13 +36,24 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
         // 因为Fragment恢复后savedInstanceState不为null，
         // 重新恢复后会自动从ViewModel中的LiveData恢复数据，
         // 不需要重新初始化数据。
+        initStateObserve()
         initObserve()
         if (savedInstanceState == null) {
             initData()
         }
     }
 
-    open fun initObserve() {
+    /**
+     * 是否采用依赖注入的方式注入ViewModel
+     */
+    open fun isDIViewModel(): Boolean = false
+
+    /**
+     * 初始化自己的观察者
+     */
+    abstract fun initObserve()
+
+    open fun  initStateObserve() {
         mViewModel.viewStatus.observe(viewLifecycleOwner, Observer {
             when (it) {
                 ViewStatusEnum.SUCCESS -> {

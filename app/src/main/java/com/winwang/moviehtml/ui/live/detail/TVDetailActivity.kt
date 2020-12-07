@@ -34,7 +34,6 @@ class TVDetailActivity : BaseVmActivity<TVDetailViewModel>() {
     }
 
     override fun initObserve() {
-        super.initObserve()
         mViewModel.playUrl.observe(this, Observer {
             //            tv_player.setUp(it, tvName)
             tv_player.setUp(it, tvName)

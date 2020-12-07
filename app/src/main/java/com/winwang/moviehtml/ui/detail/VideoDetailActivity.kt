@@ -35,7 +35,6 @@ class VideoDetailActivity : BaseVmActivity<VideoDetailViewModel>() {
 
 
     override fun initObserve() {
-        super.initObserve()
         mViewModel.playUrlEvent.observe(this, Observer {
             video_player.setUp(it, "")
             video_player.startButton.performClick()

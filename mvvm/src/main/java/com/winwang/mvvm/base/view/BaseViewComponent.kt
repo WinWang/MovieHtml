@@ -12,7 +12,9 @@ import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.ext.showToast
 import com.winwang.mvvm.widget.LoadDialog
 import org.greenrobot.eventbus.EventBus
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import java.lang.reflect.ParameterizedType
+import kotlin.reflect.KClass
 
 /**
  *Created by WinWang on 2020/8/25
@@ -41,8 +43,14 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
     open var mContext: Context = context
 
     protected val mViewModel: VM by lazy {
-        val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
-        ViewModelProvider(viewModelStoreOwner).get<VM>(types[0] as Class<VM>)
+        if (isDIViewModel()) {
+            val clazz =
+                this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
+            viewModelStoreOwner!!.getViewModel<VM>(clazz = clazz)
+        } else {
+            val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
+            ViewModelProvider(viewModelStoreOwner).get<VM>(types[0] as Class<VM>)
+        }
     }
 
 
@@ -54,6 +62,11 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
         super.onAttachedToWindow()
     }
 
+
+    /**
+     * 是否采用依赖注入的方式注入ViewModel
+     */
+    open fun isDIViewModel(): Boolean = false
 
     open fun init() {
         lifecycleOwner = this.findViewTreeLifecycleOwner()!!

@@ -30,7 +30,6 @@ class HomeFragment : BaseVmFragment<HomeViewModel>(), SwipeRefreshLayout.OnRefre
     override fun initView() {
         super.initView()
         mTopBar?.setTitle("首页")
-        showDialogLoading()
         refresh_home.setColorSchemeColors(resources.getColor(R.color.colorAccent))
         refresh_home.setOnRefreshListener(this)
         adapter = HomeAdapter(dataList).apply {
@@ -87,11 +86,9 @@ class HomeFragment : BaseVmFragment<HomeViewModel>(), SwipeRefreshLayout.OnRefre
     }
 
     override fun initObserve() {
-        super.initObserve()
         mViewModel.run {
             liveMovieList.observe(viewLifecycleOwner, Observer {
                 adapter.setNewInstance(it)
-                hideLoading()
             })
         }
 
