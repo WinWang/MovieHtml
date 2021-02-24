@@ -1,5 +1,6 @@
 package com.winwang.moviehtml.ui.live.detail
 
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import cn.jzvd.Jzvd
 import com.winwang.moviehtml.R

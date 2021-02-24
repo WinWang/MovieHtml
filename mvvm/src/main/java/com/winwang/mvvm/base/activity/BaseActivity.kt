@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.ViewTreeViewModelStoreOwner
 import androidx.savedstate.ViewTreeSavedStateRegistryOwner
@@ -91,7 +93,6 @@ abstract class BaseActivity : AppCompatActivity(), IView {
             mTopBar?.setTitle(title)
         }
     }
-
 
     /**
      * 是否展示返回按钮

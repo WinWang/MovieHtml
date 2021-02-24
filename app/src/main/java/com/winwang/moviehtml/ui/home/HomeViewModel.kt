@@ -33,7 +33,7 @@ class HomeViewModel : BaseViewModel() {
                 }
             },
             error = {
-                LogUtils.e(it.toString())
+//                LogUtils.e(it.toString())
             }
         )
     }

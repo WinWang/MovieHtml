@@ -17,7 +17,7 @@ ext {
             androidxAppCompat: "1.2.0",
             androidxAnotation: "1.1.0",
 
-            koinVersion      : "2.2.0-rc-1",
+            koinVersion      : "2.2.0",
             ktxActivity      : "1.2.0-alpha08",
             ktxFragment      : "1.3.0-alpha08",
 
@@ -39,6 +39,7 @@ ext {
             "lifecycle-livedata"         : "androidx.lifecycle:lifecycle-livedata-ktx:${android["lifecycle"]}",
             "lifecycle-compiler"         : "androidx.lifecycle:lifecycle-compiler:${android["lifecycle"]}",
             "lifecycle-save-state"       : "androidx.lifecycle:lifecycle-viewmodel-savedstate:${android["lifecycle"]}",
+            "lifecycle-process"          : "androidx.lifecycle:lifecycle-process:${android["lifecycle"]}",
             //// alternately - if using Java8, use the following instead of lifecycle-compiler(用了这个就不用compiler)
             "lifecycle-common"           : "androidx.lifecycle:lifecycle-common-java8:${android["lifecycle"]}",
 

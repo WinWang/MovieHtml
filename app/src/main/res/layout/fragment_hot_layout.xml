@@ -6,27 +6,50 @@
 
     <include layout="@layout/head_top_bar_layout" />
 
-    <Button
-        android:id="@+id/button"
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hahahah" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_hot_txt"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="hahahah" />
 
 
-<!--    <include layout="@layout/hot_test_view_layout" />-->
+            <!--    <include layout="@layout/hot_test_view_layout" />-->
 
-<!--    <include layout="@layout/hot_di_test_view_layout" />-->
-    <com.winwang.moviehtml.widget.HotDIViewTest
-        android:id="@+id/hot_di_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+            <!--    <include layout="@layout/hot_di_test_view_layout" />-->
+            <com.winwang.moviehtml.widget.HotDIViewTest
+                android:id="@+id/hot_di_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
 
 
-    <TextView
-        android:id="@+id/tv_test_hot"
-        android:layout_width="match_parent"
-        android:layout_height="300pt" />
+            <TextView
+                android:id="@+id/tv_test_hot"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
 
 
 </LinearLayout>

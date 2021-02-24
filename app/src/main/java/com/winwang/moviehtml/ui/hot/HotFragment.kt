@@ -5,6 +5,7 @@ import com.qmuiteam.qmui.kotlin.onClick
 import com.winwang.moviehtml.R
 import com.winwang.mvvm.base.fragment.BaseVmDIFragment
 import com.winwang.mvvm.base.fragment.BaseVmFragment
+import com.youth.banner.util.LogUtils
 import kotlinx.android.synthetic.main.fragment_hot_layout.*
 import kotlinx.android.synthetic.main.hot_di_test_view_layout.*
 import org.greenrobot.eventbus.EventBus
@@ -31,6 +32,7 @@ class HotFragment : BaseVmFragment<HotViewModel>() {
 
     override fun isDIViewModel() = true
 
+
     override fun initData() {
         super.initData()
 
@@ -40,7 +42,8 @@ class HotFragment : BaseVmFragment<HotViewModel>() {
         super.lazyLoadData()
 //        hot_view.getMovieList()
 //        hot_di_view.initObserve()
-//        loadNet()
+        loadNet()
+        LogUtils.e(">>>>>>>>>>>>Hot>>>>${mViewModel.toString()}")
     }
 
     override fun loadNet() {
@@ -50,6 +53,7 @@ class HotFragment : BaseVmFragment<HotViewModel>() {
 //        showSuccess()
 //        hotViewModel.getTestData()
 //        initObserve()
+
     }
 
     override fun initObserve() {
@@ -57,6 +61,11 @@ class HotFragment : BaseVmFragment<HotViewModel>() {
             showSuccess()
             tv_di_hot_title.text = it.toString()
         })
+
+        mViewModel.liveDataTest.observe(this, Observer {
+            tv_hot_txt.text = it
+        })
+
     }
 
     fun sendEvent() {

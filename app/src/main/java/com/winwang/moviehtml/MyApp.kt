@@ -1,8 +1,10 @@
 package com.winwang.moviehtml
 
-import com.blankj.utilcode.util.LogUtils
+import androidx.lifecycle.ProcessLifecycleOwner
+import com.winwang.moviehtml.common.ApplicationLifecycleListener
 import com.winwang.moviehtml.di.appModule
 import com.winwang.mvvm.base.App
+import com.winwang.mvvm.common.CrashHandler
 import org.koin.core.context.startKoin
 
 /**
@@ -15,6 +17,13 @@ class MyApp : App() {
         startKoin {
             modules(appModule)
         }
+        CrashHandler.init()
+        initProcessLifecycle()
     }
+
+    private fun initProcessLifecycle() {
+        ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleListener())
+    }
+
 
 }

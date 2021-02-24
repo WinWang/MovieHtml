@@ -19,6 +19,11 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
     }
 
+    dataBinding {
+        enabled true
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -54,6 +59,7 @@ dependencies {
     api rootProject.ext.dependencies["lifecycle-viewmodel"]
     api rootProject.ext.dependencies["lifecycle-livedata"]
     api rootProject.ext.dependencies["lifecycle-save-state"]
+    api rootProject.ext.dependencies["lifecycle-process"]
     api rootProject.ext.dependencies["activity"]
     api rootProject.ext.dependencies["fragment"]
     kapt rootProject.ext.dependencies["lifecycle-compiler"]

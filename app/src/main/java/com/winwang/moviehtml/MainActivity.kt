@@ -2,18 +2,28 @@ package com.winwang.moviehtml
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
+import com.blankj.utilcode.util.LogUtils
 import com.winwang.moviehtml.ui.home.HomeFragment
 import com.winwang.moviehtml.ui.home.TestDialog
 import com.winwang.moviehtml.ui.hot.HotFragment
+import com.winwang.moviehtml.ui.hot.HotViewModel
 import com.winwang.moviehtml.ui.live.LiveFragment
+import com.winwang.moviehtml.ui.live.LiveViewModel
 import com.winwang.mvvm.base.activity.BaseActivity
+import com.winwang.mvvm.base.activity.BaseVmActivity
 import com.winwang.mvvm.common.SimpleFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.hot_test_view_layout.*
+import kotlinx.coroutines.launch
+import java.lang.RuntimeException
 
 class MainActivity : BaseActivity() {
+
     override fun getLayoutId(): Int = R.layout.activity_main
 
     var fragmentList = arrayListOf<Fragment>()
@@ -62,6 +72,7 @@ class MainActivity : BaseActivity() {
             })
             adapter = SimpleFragmentPagerAdapter(supportFragmentManager, fragmentList, tabList)
             offscreenPageLimit = 4
+
         }
 
         /**
@@ -72,6 +83,7 @@ class MainActivity : BaseActivity() {
 //        hot_view.getMovieList()
 
     }
+
 
     /**
      * 修复Android Q版本的官方内存泄漏，必须在根Activity调用finishAfterTransition()-不能直接调用super

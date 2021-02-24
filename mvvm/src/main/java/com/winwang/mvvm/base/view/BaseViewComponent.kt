@@ -1,6 +1,7 @@
 package com.winwang.mvvm.base.view
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.ContextThemeWrapper
 import android.widget.FrameLayout
@@ -13,12 +14,16 @@ import com.winwang.mvvm.ext.showToast
 import com.winwang.mvvm.widget.LoadDialog
 import org.greenrobot.eventbus.EventBus
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.qualifier.qualifier
 import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KClass
 
 /**
  *Created by WinWang on 2020/8/25
- *Description->
+*Description->具有能感知生命周期和获取viewmodel的控件，如果泛型和Fragment或者Activity里面的Viewmodel相同，
+ *             默认获取的就是外层的Fragment或者Activity的Viewmode
+ * Tips-------->解决防止内部的viewmodel和外部的viewmodel相同的情况，可以通过koin的Quolifier来处理，在module中
+ *              通过name注入不同的viewmode的别名来实现
  */
 abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
     context: Context,
@@ -46,13 +51,20 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
         if (isDIViewModel()) {
             val clazz =
                 this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
-            viewModelStoreOwner!!.getViewModel<VM>(clazz = clazz)
+            viewModelStoreOwner.getViewModel<VM>(
+                qualifier = if (!TextUtils.isEmpty(koinQualifier())) qualifier(koinQualifier()) else null,
+                clazz = clazz
+            )
         } else {
             val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
             ViewModelProvider(viewModelStoreOwner).get<VM>(types[0] as Class<VM>)
         }
     }
 
+    /**
+     * 设置Quolifier别名-在viewcomponent中可有获取自己独立复用的Viewmodel，防止viewmodel中的参数污染
+     */
+    open fun koinQualifier(): String = ""
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -178,7 +190,6 @@ abstract class BaseViewComponent<VM : BaseViewModel> @JvmOverloads constructor(
             loadingDialog.hideLoading()
         }
     }
-
 
 
 }

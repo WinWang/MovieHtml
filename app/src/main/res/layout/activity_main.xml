@@ -38,7 +38,8 @@
         app:menu="@menu/bottom_nav_menu" />
 
 
-<!--    <include layout="@layout/hot_test_view_layout"/>-->
+
+    <!--    <include layout="@layout/hot_test_view_layout"/>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

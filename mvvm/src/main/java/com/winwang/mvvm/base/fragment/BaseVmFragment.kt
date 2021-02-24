@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
+import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KClass
@@ -20,13 +21,28 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
         if (isDIViewModel()) {
             val clazz =
                 this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
-            getViewModel<VM>(clazz = clazz)
+            if (isShareViewModel()) {
+                getSharedViewModel<VM>(clazz = clazz)
+            } else {
+                getViewModel<VM>(clazz = clazz)
+            }
         } else {
             val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
-            ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
+            if (isShareViewModel()) {
+                ViewModelProvider(
+                    requireActivity().viewModelStore,
+                    requireActivity().defaultViewModelProviderFactory
+                ).get<VM>(types[0] as Class<VM>)
+            } else {
+                ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
+            }
         }
     }
-    private var lazyLoaded = false
+
+    /**
+     * 是否复用顶层Activity的viewmodel来通信
+     */
+    open fun isShareViewModel(): Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,7 +69,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
      */
     abstract fun initObserve()
 
-    open fun  initStateObserve() {
+    open fun initStateObserve() {
         mViewModel.viewStatus.observe(viewLifecycleOwner, Observer {
             when (it) {
                 ViewStatusEnum.SUCCESS -> {

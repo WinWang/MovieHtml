@@ -19,6 +19,12 @@ class LiveViewModel : BaseViewModel() {
 
     private var livelist: ArrayList<LiveTypeBean> = arrayListOf()
 
+    val liveDataTest: MutableLiveData<String> = MutableLiveData()
+
+    fun testShareViewModel() {
+        liveDataTest.postValue("100")
+    }
+
     fun getLiveList() {
         launch(block = {
             val documentJob = async(Dispatchers.IO) {

@@ -38,7 +38,6 @@ class LiveFragment : BaseVmFragment<LiveViewModel>() {
         rv_live.adapter = adapter
     }
 
-
     override fun loadNet() {
         testMethod()
         mViewModel.getLiveList()
@@ -61,7 +60,13 @@ class LiveFragment : BaseVmFragment<LiveViewModel>() {
                 adapter.setNewInstance(it)
 //                hideLoading()
             })
+
+            liveDataTest.observe(viewLifecycleOwner, Observer {
+
+            })
+
         }
+
     }
 
 
