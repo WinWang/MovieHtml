@@ -30,6 +30,16 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    //databinding启用
+    dataBinding {
+        enabled = true
+    }
+
+    //viewbinding启用
+    viewBinding {
+        enabled = true
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -39,6 +49,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':mvvm')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     annotationProcessor(rootProject.ext.dependencies["glide-compiler"])
 
     testImplementation 'junit:junit:4.13'

@@ -2,6 +2,7 @@ package com.winwang.moviehtml.di
 
 import com.winwang.moviehtml.http.ApiService
 import com.winwang.moviehtml.http.HomeService
+import com.winwang.moviehtml.test.activity.TestVmDbViewmodel
 import com.winwang.moviehtml.ui.hot.HomeRepository
 import com.winwang.moviehtml.ui.hot.HotViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,6 +16,7 @@ import org.koin.dsl.module
 //viewmodel注入管理类
 val viewModelModule = module {
     viewModel { HotViewModel(get()) }
+    viewModel { TestVmDbViewmodel(get()) }
 
 }
 

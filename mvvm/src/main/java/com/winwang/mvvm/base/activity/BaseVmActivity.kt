@@ -44,6 +44,7 @@ abstract class BaseVmActivity<VM : BaseViewModel> : BaseActivity() {
         }
     }
 
+    //通过koin注入或者字节码操作生成，不需要自己实现
     private fun initViewModel() {
 //        mViewModel = ViewModelProvider(this).get(viewModelClass())
     }

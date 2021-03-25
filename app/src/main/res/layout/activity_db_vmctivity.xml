@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".test.activity.DbVmctivity">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.winwang.moviehtml.test.activity.TestVmDbViewmodel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/view_content_loadsir"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40pt"
+            android:background="@color/colorPrimary"
+            android:text="@={viewmodel.liveDataTest}"
+            android:textColor="#000"
+            android:textSize="30pt" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="800pt"
+            android:background="#ff0000" />
+
+
+    </LinearLayout>
+
+
+</layout>

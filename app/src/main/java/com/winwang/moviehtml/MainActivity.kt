@@ -2,25 +2,16 @@ package com.winwang.moviehtml
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
-import com.blankj.utilcode.util.LogUtils
+import com.winwang.moviehtml.test.activity.ViewBindVMActivity
 import com.winwang.moviehtml.ui.home.HomeFragment
-import com.winwang.moviehtml.ui.home.TestDialog
 import com.winwang.moviehtml.ui.hot.HotFragment
-import com.winwang.moviehtml.ui.hot.HotViewModel
 import com.winwang.moviehtml.ui.live.LiveFragment
-import com.winwang.moviehtml.ui.live.LiveViewModel
+import com.winwang.moviehtml.utils.Router
 import com.winwang.mvvm.base.activity.BaseActivity
-import com.winwang.mvvm.base.activity.BaseVmActivity
 import com.winwang.mvvm.common.SimpleFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.hot_test_view_layout.*
-import kotlinx.coroutines.launch
-import java.lang.RuntimeException
 
 class MainActivity : BaseActivity() {
 
@@ -72,7 +63,9 @@ class MainActivity : BaseActivity() {
             })
             adapter = SimpleFragmentPagerAdapter(supportFragmentManager, fragmentList, tabList)
             offscreenPageLimit = 4
-
+            Router.newIntent(mContext)
+                .to(ViewBindVMActivity::class.java)
+                .launch()
         }
 
         /**

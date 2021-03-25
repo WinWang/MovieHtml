@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.ViewTreeViewModelStoreOwner
 import androidx.savedstate.ViewTreeSavedStateRegistryOwner
@@ -26,13 +23,12 @@ import com.winwang.mvvm.loadsir.ErrorCallback
 import com.winwang.mvvm.loadsir.LoadingCallback
 import com.winwang.mvvm.loadsir.TimeoutCallback
 import com.winwang.mvvm.widget.LoadDialog
-import com.winwang.mvvm.widget.LoadingDialog
 import me.jessyan.autosize.AutoSize
 import org.greenrobot.eventbus.EventBus
 
 /**
  *Created by WinWang on 2020/6/8
- *Description->
+ *Description->没有使用DataBinding的普通基类
  */
 abstract class BaseActivity : AppCompatActivity(), IView {
 
@@ -51,7 +47,7 @@ abstract class BaseActivity : AppCompatActivity(), IView {
         BarUtils.transparentStatusBar(this)
         super.onCreate(savedInstanceState)
         initViewTreeOwners()
-        setContentView(getLayoutId())
+        setContentLayout()
         if (useEventBus()) {
             EventBus.getDefault().register(this)
         }
@@ -59,6 +55,10 @@ abstract class BaseActivity : AppCompatActivity(), IView {
         initTopBar()
         initLoadSir()
         initViewData()
+    }
+
+    open fun setContentLayout() {
+        setContentView(getLayoutId())
     }
 
     /**
@@ -106,7 +106,7 @@ abstract class BaseActivity : AppCompatActivity(), IView {
 
     }
 
-    private fun initLoadSir() {
+    open fun initLoadSir() {
         if (getLayoutId() > 0) {
             val content = findViewById<View>(R.id.view_content_loadsir)
             content?.let {
@@ -115,14 +115,14 @@ abstract class BaseActivity : AppCompatActivity(), IView {
         }
     }
 
-    private fun setLoadSir(it: View) {
+    protected fun setLoadSir(it: View) {
         mLoadService = LoadSir.getDefault().register(it) {
             mLoadService?.showCallback(LoadingCallback::class.java)
             loadNet()
         }
     }
 
-    fun initViewComponent(it: View) {
+    private fun initViewComponent(it: View) {
         it?.run {
             if (this is ViewGroup) {
                 var vp: ViewGroup = it as ViewGroup

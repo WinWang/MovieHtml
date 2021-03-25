@@ -1,10 +1,11 @@
-package com.winwang.mvvm.base.dialog
+package com.winwang.mvvm.base.activity
 
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.winwang.mvvm.base.IView
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -12,13 +13,14 @@ import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KClass
 
 /**
- *Created by WinWang on 2020/6/16
- *Description->Viewmodel请求的Dialog
+ *Created by WinWang on 2020/6/8
+ *Description->使用了DataBinding+Viewmodel基类
  */
-abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
-
+abstract class BaseVmDBActivity<VM : BaseViewModel, DB : ViewDataBinding>
+    : BaseDBActivity<DB>() {
     protected val mViewModel: VM by lazy {
         if (isDIViewModel()) {
+            //koin 注入
             val clazz =
                 this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
             getViewModel<VM>(clazz = clazz)
@@ -28,36 +30,32 @@ abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         lifecycle.addObserver(mViewModel)
+        initDataBindingAndLiveData()
         initView()
-        initViewModel()
-        initStateObserve()
+        initStatusObserve()
         initObserve()
+        // 因为Activity恢复后savedInstanceState不为null，
+        // 重新恢复后会自动从ViewModel中的LiveData恢复数据，
+        // 不需要重新初始化数据。
         if (savedInstanceState == null) {
             initData()
+            loadNet()
         }
     }
 
-    /**
-     * 初始化自己的观察者
-     */
-    abstract fun initObserve()
-
-
-    /**
-     * 普通加载数据
-     */
-    open fun initData() {
-        // Override if need
+    private fun initDataBindingAndLiveData() {
+        mDataBind.lifecycleOwner = this
     }
 
-    /**
-     * 如果有需要初始化View数据
-     */
     open fun initView() {
-        // Override if need
+
+    }
+
+    open fun initData() {
+
     }
 
     /**
@@ -65,8 +63,13 @@ abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
      */
     open fun isDIViewModel(): Boolean = false
 
-    open fun initStateObserve() {
-        mViewModel.viewStatus.observe(viewLifecycleOwner, Observer {
+    /**
+     * 初始化业务观察LiveData
+     */
+    abstract fun initObserve()
+
+    private fun initStatusObserve() {
+        mViewModel.viewStatus.observe(this, Observer {
             when (it) {
                 ViewStatusEnum.SUCCESS -> {
                     showSuccess()
@@ -88,16 +91,10 @@ abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
         })
     }
 
-
-    private fun initViewModel() {
-        //通过lazy初始化
-//        mViewModel = ViewModelProvider(this).get(viewModelClass())
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         lifecycle.removeObserver(mViewModel)
     }
+
 
 }

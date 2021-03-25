@@ -2,6 +2,7 @@ package com.winwang.mvvm.base.dialog
 
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,9 +14,9 @@ import kotlin.reflect.KClass
 
 /**
  *Created by WinWang on 2020/6/16
- *Description->Viewmodel请求的Dialog
+ *Description->Viewmodel+Databinding的Dialog
  */
-abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
+abstract class BaseVmDBDialog<VM : BaseViewModel, DB : ViewDataBinding> : BaseDBDialog<DB>() {
 
     protected val mViewModel: VM by lazy {
         if (isDIViewModel()) {
@@ -31,20 +32,25 @@ abstract class BaseVmDialog<VM : BaseViewModel> : BaseDialog() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycle.addObserver(mViewModel)
+        initDataBindingAndLiveData()
         initView()
         initViewModel()
-        initStateObserve()
         initObserve()
+        initStateObserve()
         if (savedInstanceState == null) {
             initData()
         }
     }
 
+    private fun initDataBindingAndLiveData() {
+        mBinding.lifecycleOwner = this
+    }
+
+
     /**
      * 初始化自己的观察者
      */
     abstract fun initObserve()
-
 
     /**
      * 普通加载数据

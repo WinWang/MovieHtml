@@ -3,7 +3,6 @@ package com.winwang.moviehtml.ui.hot
 import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.kotlin.onClick
 import com.winwang.moviehtml.R
-import com.winwang.mvvm.base.fragment.BaseVmDIFragment
 import com.winwang.mvvm.base.fragment.BaseVmFragment
 import com.youth.banner.util.LogUtils
 import kotlinx.android.synthetic.main.fragment_hot_layout.*

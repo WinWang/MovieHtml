@@ -30,5 +30,9 @@ class TestDialog : BaseVmDialog<HomeViewModel>() {
         super.onDestroyView()
     }
 
+    override fun initObserve() {
+
+    }
+
 
 }

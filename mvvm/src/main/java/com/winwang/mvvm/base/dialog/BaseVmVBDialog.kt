@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewbinding.ViewBinding
 import com.winwang.mvvm.base.viewmodel.BaseViewModel
 import com.winwang.mvvm.enums.ViewStatusEnum
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -13,16 +14,19 @@ import kotlin.reflect.KClass
 
 /**
  *Created by WinWang on 2020/6/16
- *Description->Viewmodel请求的Dialog-koin注入版本，如果不用注入，使用普通BaseVmDialog版本
- * @see BaseVmDialog
+ *Description->Viewmodel+ViewBinding请求的Dialog
  */
-@Deprecated(message = "不需要单独使用了，通过基类的isDIViewModel来控制注入方式，不使用多个基类")
-abstract class BaseVmDIDialog<VM : BaseViewModel> : BaseDialog() {
+abstract class BaseVmVBDialog<VM : BaseViewModel, VB : ViewBinding> : BaseVBDialog<VB>() {
 
     protected val mViewModel: VM by lazy {
-        val clazz =
-            this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
-        getViewModel<VM>(clazz = clazz)
+        if (isDIViewModel()) {
+            val clazz =
+                this.javaClass.kotlin.supertypes[0].arguments[0].type!!.classifier!! as KClass<VM>
+            getViewModel<VM>(clazz = clazz)
+        } else {
+            val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
+            ViewModelProvider(this).get<VM>(types[0] as Class<VM>)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,11 +34,17 @@ abstract class BaseVmDIDialog<VM : BaseViewModel> : BaseDialog() {
         lifecycle.addObserver(mViewModel)
         initView()
         initViewModel()
+        initStateObserve()
         initObserve()
         if (savedInstanceState == null) {
             initData()
         }
     }
+
+    /**
+     * 初始化自己的观察者
+     */
+    abstract fun initObserve()
 
     /**
      * 普通加载数据
@@ -50,7 +60,12 @@ abstract class BaseVmDIDialog<VM : BaseViewModel> : BaseDialog() {
         // Override if need
     }
 
-    open fun initObserve() {
+    /**
+     * 是否采用依赖注入的方式注入ViewModel
+     */
+    open fun isDIViewModel(): Boolean = false
+
+    open fun initStateObserve() {
         mViewModel.viewStatus.observe(viewLifecycleOwner, Observer {
             when (it) {
                 ViewStatusEnum.SUCCESS -> {

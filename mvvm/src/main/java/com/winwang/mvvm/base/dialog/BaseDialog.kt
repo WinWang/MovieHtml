@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import com.blankj.utilcode.util.ToastUtils
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.winwang.mvvm.R
@@ -23,13 +24,14 @@ abstract class BaseDialog : DialogFragment(), IView {
 
     var mLoadService: LoadService<Any>? = null
     open var mContext: FragmentActivity? = null
+    lateinit var mRootView: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val mRootView = inflater.inflate(getLayoutId(), container, false)
+        generateView(inflater, container)
         mContext = requireActivity()
         if (useLoadSir()) {
             val content = mRootView.findViewById<View>(R.id.view_content_loadsir)
@@ -37,6 +39,12 @@ abstract class BaseDialog : DialogFragment(), IView {
         }
         return mRootView
     }
+
+
+    open fun generateView(inflater: LayoutInflater, container: ViewGroup?) {
+        mRootView = inflater.inflate(getLayoutId(), container, false)
+    }
+
 
     override fun onStart() {
         super.onStart()
@@ -97,7 +105,7 @@ abstract class BaseDialog : DialogFragment(), IView {
     }
 
     fun showToast(toastMsg: String) {
-//        ToastUtils.showShort(toastMsg)
+        ToastUtils.showShort(toastMsg)
     }
 
     override fun hideRefresh() {

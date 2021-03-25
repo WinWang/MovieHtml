@@ -28,6 +28,10 @@ import org.greenrobot.eventbus.EventBus
 
 abstract class BaseFragment : Fragment(), IView {
 
+    val TRADITIONAL = 1   //传统的
+    val VIEWDINDING = 2   //viewBinding的方式
+    val DATABINDING = 3   //databinding的方式
+
     private var mLoadService: LoadService<Any>? = null
     private lateinit var loadingDialog: LoadDialog
     open var mContext: FragmentActivity? = null
@@ -36,7 +40,6 @@ abstract class BaseFragment : Fragment(), IView {
 
     lateinit var mRootView: View
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (useEventBus()) {
@@ -44,13 +47,12 @@ abstract class BaseFragment : Fragment(), IView {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mRootView = inflater.inflate(getLayoutId(), container, false)
+        generateView(inflater, container)
         /*******处理是否使用loadSir逻辑 */
         initTitleBar(mRootView)
         mContext = requireActivity()
@@ -62,6 +64,9 @@ abstract class BaseFragment : Fragment(), IView {
         }
     }
 
+    open fun generateView(inflater: LayoutInflater, container: ViewGroup?) {
+        mRootView = inflater.inflate(getLayoutId(), container, false)
+    }
 
     private fun initTitleBar(mRootView: View?) {
         mTopBar = mRootView?.findViewById(R.id.qm_topbar)
