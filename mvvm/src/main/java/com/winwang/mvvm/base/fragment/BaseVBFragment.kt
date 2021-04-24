@@ -27,5 +27,10 @@ abstract class BaseVBFragment<VB : ViewBinding> : BaseFragment() {
         mRootView = mBinding.root
     }
 
+    /**
+     * 重写不需要子类复写
+     */
+    override fun getLayoutId() = 1
+
 
 }

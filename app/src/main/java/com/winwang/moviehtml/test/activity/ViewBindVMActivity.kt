@@ -9,6 +9,7 @@ import com.winwang.moviehtml.databinding.ActivityViewBindTestBinding
 import com.winwang.moviehtml.test.dialog.VMVBDialog
 import com.winwang.moviehtml.test.fragment.ViewBindVMFragment
 import com.winwang.mvvm.base.activity.BaseVmVBActivity
+import kotlinx.android.synthetic.main.activity_view_bind_test.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -30,6 +31,12 @@ class ViewBindVMActivity : BaseVmVBActivity<TestVmDbViewmodel, ActivityViewBindT
 
     override fun getLayoutId() = R.layout.activity_view_bind_test
 
+
+    override fun initView() {
+        super.initView()
+        tv_test_1.init()
+    }
+
     override fun initData() {
         super.initData()
         lifecycleScope.launch {
@@ -39,6 +46,7 @@ class ViewBindVMActivity : BaseVmVBActivity<TestVmDbViewmodel, ActivityViewBindT
             }.collect {
                 showSuccess()
                 mViewModel.testShareViewModel()
+
                 FragmentUtils.replace(
                     supportFragmentManager,
                     ViewBindVMFragment(), R.id.frame

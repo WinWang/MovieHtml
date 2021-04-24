@@ -25,4 +25,9 @@ abstract class BaseVBDialog<VB : ViewBinding> : BaseDialog() {
         mRootView = mBinding.root
     }
 
+    /**
+     * 重写不需要子类复写
+     */
+    override fun getLayoutId() = 1
+
 }

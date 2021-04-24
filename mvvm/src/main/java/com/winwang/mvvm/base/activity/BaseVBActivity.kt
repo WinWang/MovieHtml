@@ -1,12 +1,8 @@
 package com.winwang.mvvm.base.activity
 
 import android.view.LayoutInflater
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
-import com.winwang.mvvm.base.IView
 import java.lang.reflect.ParameterizedType
-import kotlin.reflect.KClass
 
 /**
  *Created by WinWang on 2020/6/8
@@ -27,6 +23,9 @@ abstract class BaseVBActivity<VB : ViewBinding> : BaseActivity() {
             setContentView(mbinding.root)
         }
     }
+
+
+    override fun getLayoutId() = 1
 
 
 }
